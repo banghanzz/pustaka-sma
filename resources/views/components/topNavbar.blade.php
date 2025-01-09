@@ -12,32 +12,27 @@
         </button>
 
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-            {{-- Nav Item --}}
+            {{-- Left Side Nav Item --}}
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item d-flex align-items-center justify-content-center">
-                    <a class="nav-link active" aria-current="page" href="#">Koleksi Buku</a>
+                    <a class="nav-link {{ $title === 'Koleksi Buku' ? 'active fw-semibold' : '' }}" aria-current="page" href="{{ url('/') }}">Koleksi Buku</a>
                 </li>
                 <li class="nav-item d-flex align-items-center justify-content-center">
-                    <a class="nav-link" href="#">Tata Tertib</a>
+                    <a class="nav-link {{ $title === 'Tata Tertib' ? 'active fw-semibold' : '' }}" href="{{ url('/tata-tertib') }}">Tata Tertib</a>
                 </li>
                 <li class="nav-item d-flex align-items-center justify-content-center">
-                    <a class="nav-link" href="#">Visi & Misi</a>
-                </li>
-                <li class="nav-item dropdown d-flex align-items-center justify-content-center">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Peminjaman
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Keranjang Buku</a></li>
-                        <li><a class="dropdown-item" href="#">Riwayat Pinjaman</a></li>
-                        <li><a class="dropdown-item" href="#">Rekapitulasi</a></li>
-                    </ul>
+                    <a class="nav-link {{ $title === 'Visi & Misi' ? 'active fw-semibold' : '' }}" href="{{ url('/visi-misi') }}">Visi & Misi</a>
                 </li>
             </ul>
 
-            {{-- Profile Info --}}
+            {{-- Right Side Nav Item --}}
             <ul class="navbar-nav mb-2 mb-lg-0">
+                {{-- Keranjang --}}
+                <li class="nav-item d-flex align-items-center justify-content-center">
+                    <a class="nav-link d-flex align-items-center {{ $title === 'Keranjang' ? 'active fw-semibold' : '' }}" href="{{ url('/keranjang') }}"><i class="bi {{ $title === 'Keranjang' ? 'bi-cart-fill' : 'bi-cart' }} fs-4 me-1"></i>Keranjang</a>
+                </li>
+
+                {{-- Profile Info --}}
                 <li class="nav-item dropdown d-flex align-items-center justify-content-center">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,7 +50,9 @@
                         </div>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/profile">Data Profil</a>
+                        <a class="dropdown-item" href="{{ url('/kartu-perpustakaan') }}">Kartu Perpustakaan</a>
+                        <a class="dropdown-item" href="{{ url('/riwayat') }}">Riwayat Pinjaman</a>
+                        <a class="dropdown-item" href="{{ url('/rekapitulasi') }}">Rekapitulasi</a>
                         <a class="dropdown-item" href="/ubahpassword">Ubah Password</a>
                         <a class="dropdown-item text-danger" href="/login">Logout</a>
                     </div>
