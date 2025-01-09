@@ -15,13 +15,16 @@
     {{-- Bootstrap Icon CSS --}}
     <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
+    {{-- DataTables CSS --}}
+    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.css') }}" />
+
     {{-- Livewire Style --}}
     @livewireStyles
 
     {{-- Custom CSS --}}
     @yield('style')
 
-    <title>Perpustakaan SMAN 3 Tualang</title>
+    <title>{{ $title }} - Perpustakaan SMAN 3 Tualang</title>
 </head>
 
 <body>
@@ -29,6 +32,9 @@
     
     {{-- Bootstrap JS --}}
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    {{-- DataTables JS --}}
+    <script src="{{ asset('assets/datatables/datatables.js') }}"></script>
 
     {{-- Livewire Script --}}
     @livewireScripts
