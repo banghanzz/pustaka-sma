@@ -11,6 +11,12 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/sbadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('assets/sbadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+    {{-- Bootstrap Icon CSS --}}
+    <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
     {{-- Livewire Style --}}
     @livewireStyles
 
