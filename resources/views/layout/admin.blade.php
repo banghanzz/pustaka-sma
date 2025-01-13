@@ -14,6 +14,9 @@
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/sbadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- Custom styles for this page -->
+    <link href="{{ asset('assets/sbadmin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
     {{-- Bootstrap Icon CSS --}}
     <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
@@ -41,6 +44,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/sbadmin/js/sb-admin-2.min.js') }}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ asset('assets/sbadmin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/sbadmin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('assets/sbadmin/js/demo/datatables-demo.js') }}"></script>
 
     {{-- Livewire Script --}}
     @livewireScripts
