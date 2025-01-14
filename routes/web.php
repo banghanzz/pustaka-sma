@@ -17,7 +17,7 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::get('/signup', function () {
-    return view('signup.index', [
+    return view('frontpage.signup', [
         'title' => 'Daftar Akun',
     ]);
 });
