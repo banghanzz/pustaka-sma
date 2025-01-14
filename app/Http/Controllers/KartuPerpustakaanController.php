@@ -8,7 +8,7 @@ class KartuPerpustakaanController extends Controller
 {
     public function index()
     {
-        return view('kartu-perpustakaan.index',[
+        return view('frontpage.kartuperpustakaan',[
             'title' => 'Kartu Perpustakaan',
         ]);
     }

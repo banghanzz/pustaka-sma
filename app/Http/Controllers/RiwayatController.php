@@ -8,7 +8,7 @@ class RiwayatController extends Controller
 {
     public function index()
     {
-        return view('riwayat.index',[
+        return view('frontpage.riwayat',[
             'title' => 'Riwayat',
         ]);
     }

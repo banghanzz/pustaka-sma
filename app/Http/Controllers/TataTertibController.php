@@ -9,7 +9,7 @@ class TataTertibController extends Controller
 {
     public function index()
     {
-        return view('tata-tertib.index',[
+        return view('frontpage.tatatertib',[
             'title' => 'Tata Tertib',
             'tata_tertib' => TataTertib::all(),
         ]);

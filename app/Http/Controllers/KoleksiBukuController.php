@@ -9,7 +9,7 @@ class KoleksiBukuController extends Controller
 {
     public function index()
     {
-        return view('koleksi-buku.index',[
+        return view('frontpage.koleksibuku',[
             'title' => 'Koleksi Buku',
         ]);
     }

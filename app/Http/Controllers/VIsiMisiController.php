@@ -9,7 +9,7 @@ class VIsiMisiController extends Controller
 {
     public function index()
     {
-        return view('visi-misi.index',[
+        return view('frontpage.visimisi',[
             'title' => 'Visi & Misi',
             'visi_misi' => VIsiMisi::all(),
         ]);

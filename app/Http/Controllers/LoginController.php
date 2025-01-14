@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login.index',[
+        return view('frontpage.login',[
             'title' => 'Login ke Perpustakaan SMAN 3 Tualang',
         ]);
     }

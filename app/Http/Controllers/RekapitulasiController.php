@@ -8,7 +8,7 @@ class RekapitulasiController extends Controller
 {
     public function index()
     {
-        return view('rekapitulasi.index',[
+        return view('frontpage.rekapitulasi',[
             'title' => 'Rekapitulasi',
         ]);
     }
