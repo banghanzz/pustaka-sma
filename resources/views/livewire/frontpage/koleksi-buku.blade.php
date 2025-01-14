@@ -62,6 +62,11 @@
                                     <td class="text-start">{{ $selectedBook->penulis }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="text-start px-0">Penerbit</th>
+                                    <td class="text-center">:</td>
+                                    <td class="text-start">{{ $selectedBook->penerbit }}</td>
+                                </tr>
+                                <tr>
                                     <th class="text-start px-0">Kategori</th>
                                     <td class="text-center">:</td>
                                     <td class="text-start">{{ $selectedBook->kategori->nama }}</td>
