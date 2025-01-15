@@ -16,7 +16,9 @@
             @foreach ($buku as $itemBuku)
                 <div class="card p-0 border-0 shadow mb-4" style="width: 15rem;">
                     <a href="#" wire:click="selectBook({{ $itemBuku->id }})" class="text-decoration-none">
-                        <img src="{{ asset($itemBuku->sampul) }}" class="card-img-top" alt="{{ $itemBuku->judul }}"
+                        <img src="{{ $itemBuku->sampul ? Storage::url($itemBuku->sampul) : asset('assets/images/default_cover_book.jpg') }}" 
+                            onerror="this.onerror=null;this.src='{{ asset('assets/images/default_cover_book.jpg') }}';" 
+                            class="card-img-top" alt="{{ $itemBuku->judul }}"
                             style="height: 20rem; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title text-dark">{{ $itemBuku->judul }}</h5>
@@ -45,8 +47,9 @@
 
             <!-- Sampul Buku -->
             <div class="col-md-3 text-center">
-                <img src="{{ asset($selectedBook->sampul) }}" alt="Sampul Buku {{ $selectedBook->judul }}"
-                    class="img-fluid w-100 rounded shadow">
+                <img src="{{ $selectedBook->sampul ? Storage::url($selectedBook->sampul) : asset('assets/images/default_cover_book.jpg') }}" 
+                onerror="this.onerror=null;this.src='{{ asset('assets/images/default_cover_book.jpg') }}';" 
+                alt="Sampul Buku {{ $selectedBook->judul }}" class="img-fluid rounded shadow">
             </div>
 
             <!-- Informasi Buku -->
@@ -74,7 +77,7 @@
                                 <tr>
                                     <th class="text-start px-0">Lokasi Rak</th>
                                     <td class="text-center">:</td>
-                                    <td class="text-start">{{ $selectedBook->rak->rak }}</td>
+                                    <td class="text-start">Rak {{ $selectedBook->rak->rak }} - Baris {{ $selectedBook->rak->baris }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start px-0">Stok Tersedia</th>
