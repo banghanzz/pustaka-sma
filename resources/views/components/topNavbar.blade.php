@@ -38,8 +38,8 @@
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="text-center">
-                            <img src="{{ asset('assets/images/avatar.jpg') }}" class="rounded-circle" alt="Logo" width="48"
-                                height="48" />
+                            <img src="{{ Auth::user()->foto_profil ? Storage::url(Auth::user()->foto_profil) : asset('assets/images/avatar.jpg') }}" class="rounded-circle" alt="Logo" width="48"
+                                height="48" style="object-fit: cover;" />
                         </div>
                         <div class="mx-3">
                             <p class="fs-6 fw-medium p-0 m-0">
@@ -53,7 +53,12 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ url('/kartu-perpustakaan') }}">Kartu Perpustakaan</a>
                         <a class="dropdown-item" href="{{ url('/riwayat') }}">Riwayat Pinjaman</a>
-                        <a class="dropdown-item" href="{{ url('/rekapitulasi') }}">Rekapitulasi</a>
+                        @if (Auth::user()->roles_id == 2)
+                            <a class="dropdown-item" href="{{ url('/rekapitulasi') }}">Rekapitulasi</a>
+                        @endif
+                        @if (Auth::user()->roles_id == 999)
+                            <a class="dropdown-item" href="{{ url('/admin/dashboard') }}">Dashboard Admin</a>
+                        @endif
                         <a class="dropdown-item" href="/ubahpassword">Ubah Password</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf

@@ -22,14 +22,11 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/', [KoleksiBukuController::class, 'index']);
 Route::get('/tata-tertib', [TataTertibController::class, 'index']);
 Route::get('/visi-misi', [VIsiMisiController::class, 'index']);
-Route::get('/kartu-perpustakaan', [KartuPerpustakaanController::class, 'index']);
-Route::get('/keranjang', [KeranjangController::class, 'index']);
-Route::get('/riwayat', [RiwayatController::class, 'index']);
-Route::get('/rekapitulasi', [RekapitulasiController::class, 'index']);
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/kartu-perpustakaan', [KartuPerpustakaanController::class, 'index']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    
+
     Route::group(['middleware' => 'role:1,999'], function () {
         Route::get('/admin/dashboard', [DashboardController::class, 'index']);
         Route::get('/admin/transaksi-peminjaman', [DashboardController::class, 'transaksi']);
@@ -39,5 +36,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/admin/buku-rusak', [DashboardController::class, 'bukurusak']);
         Route::get('/admin/rekapitulasi', [DashboardController::class, 'rekapitulasi']);
         Route::get('/admin/anggota-perpustakaan', [DashboardController::class, 'anggota']);
+    });
+
+    Route::group(['middleware' => 'role:2,3,4,999'], function () {
+        Route::get('/keranjang', [KeranjangController::class, 'index']);
+        Route::get('/riwayat', [RiwayatController::class, 'index']);
+
+        Route::group(['middleware' => 'role:2,999'], function () {
+            Route::get('/rekapitulasi', [RekapitulasiController::class, 'index']);
+        });
     });
 });

@@ -11,7 +11,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="text-center">
-                    <img src="{{ asset('assets/images/avatar.jpg') }}" class="rounded-circle" alt="Logo" width="48"
+                    <img src="{{ Auth::user()->foto_profil ? Storage::url(Auth::user()->foto_profil) : asset('assets/images/avatar.jpg') }}" class="rounded-circle" alt="Logo" width="48"
                         height="48" />
                 </div>
                 <div class="mx-3">
@@ -26,9 +26,13 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ url('/kartu-perpustakaan') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
+                </a>   
+                <a class="dropdown-item" href="{{ url('/') }}">
+                    <i class="fas fa-book fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Front Page
                 </a>
                 <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">

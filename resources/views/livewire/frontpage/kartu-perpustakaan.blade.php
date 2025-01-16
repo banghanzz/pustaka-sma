@@ -5,7 +5,7 @@
     <div class="row">
         <!-- Foto Anggota -->
         <div class="col-md-2 text-center">
-            <img src="{{ asset('assets/images/avatar.jpg') }}" alt="" class="img-fluid w-100 rounded shadow">
+            <img src="{{ Auth::user()->foto_profil ? Storage::url(Auth::user()->foto_profil) : asset('assets/images/avatar.jpg') }}" alt="" class="img-fluid w-100 rounded shadow">
         </div>
 
         <!-- Informasi Anggota -->
@@ -17,37 +17,37 @@
                             <tr>
                                 <th class="text-start px-0" style="width: 16%;">Nama</th>
                                 <td class="text-center" style="width: 2%;">:</td>
-                                <td class="text-start">Nama Pengguna</td>
+                                <td class="text-start">{{ Auth::user()->nama }}</td>
                             </tr>
                             <tr>
-                                <th class="text-start px-0">NISN/NIK</th>
+                                <th class="text-start px-0">NISN/NIP</th>
                                 <td class="text-center">:</td>
-                                <td class="text-start"></td>
+                                <td class="text-start">{{ Auth::user()->nomor_induk }}</td>
                             </tr>
                             <tr>
                                 <th class="text-start px-0">Email</th>
                                 <td class="text-center">:</td>
-                                <td class="text-start"></td>
+                                <td class="text-start">{{ Auth::user()->email }}</td>
                             </tr>
                             <tr>
                                 <th class="text-start px-0">Nomor Telegram</th>
                                 <td class="text-center">:</td>
-                                <td class="text-start"></td>
+                                <td class="text-start">{{ Auth::user()->nomor_telegram }}</td>
                             </tr>
                             <tr>
                                 <th class="text-start px-0">Alamat</th>
                                 <td class="text-center">:</td>
-                                <td class="text-start"></td>
+                                <td class="text-start">{{ Auth::user()->alamat }}</td>
                             </tr>
                             <tr>
                                 <th class="text-start px-0">Level Pengguna</th>
                                 <td class="text-center">:</td>
-                                <td class="text-start"></td>
+                                <td class="text-start">{{ Auth::user()->role->role }}</td>
                             </tr>
                             <tr>
                                 <th class="text-start px-0">Kelas</th>
                                 <td class="text-center">:</td>
-                                <td class="text-start"></td>
+                                <td class="text-start">{{ Auth::user()->kelas ?? '-' }}</td>
                             </tr>
                         </tbody>
                     </table>
