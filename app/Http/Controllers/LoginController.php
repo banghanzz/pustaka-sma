@@ -17,22 +17,33 @@ class LoginController extends Controller
 
     public function loginPost(Request $request)
     {
-        $credetials = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
 
-        if (Auth::attempt($credetials)) {
-            return redirect('/dashboard')->with('success', 'Login berhasil');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+            if ($user->roles_id == 1 || $user->roles_id == 999) {
+                return redirect('/admin/dashboard')->with('success', 'Login berhasil');
+            } else {
+                return redirect('/')->with('success', 'Login berhasil');
+            }
         }
 
         return back()->with('error', 'Email atau Password salah, silahkan coba lagi');
-    } 
+    }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
 
-        return redirect('/');
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('success', 'Logout berhasil');
     }
 }
