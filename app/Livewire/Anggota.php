@@ -54,6 +54,16 @@ class Anggota extends Component
     {
         $this->validate();
 
+        // Pengecekan akun yang sama berdasarkan nama, nomor_induk, dan email
+        $existingUser = ModelsAnggota::where('nama', $this->nama)
+            ->where('nomor_induk', $this->nomor_induk)
+            ->where('email', $this->email)
+            ->first();
+
+        if ($existingUser) {
+            return redirect('/admin/anggota-perpustakaan')->with('error', 'Akun dengan nama, nomor induk, dan email yang sama sudah terdaftar.');
+        }
+
         $slug = Str::slug($this->nama . '-' . $this->nomor_induk);
         $fotoPath = null;
 
