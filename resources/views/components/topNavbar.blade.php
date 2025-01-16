@@ -32,6 +32,7 @@
                     <a class="nav-link d-flex align-items-center {{ $title === 'Keranjang' ? 'active fw-semibold' : '' }}" href="{{ url('/keranjang') }}"><i class="bi {{ $title === 'Keranjang' ? 'bi-cart-fill' : 'bi-cart' }} fs-4 me-1"></i>Keranjang</a>
                 </li>
 
+                @auth  
                 {{-- Profile Info --}}
                 <li class="nav-item dropdown d-flex align-items-center justify-content-center">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
@@ -42,10 +43,10 @@
                         </div>
                         <div class="mx-3">
                             <p class="fs-6 fw-medium p-0 m-0">
-                                Nama Pengguna
+                                {{ Auth::user()->nama }}
                             </p>
                             <p class="fw-light p-0 m-0" style="font-size: 12px">
-                                Role Pengguna
+                                {{ Auth::user()->role->role }}
                             </p>
                         </div>
                     </a>
@@ -54,9 +55,16 @@
                         <a class="dropdown-item" href="{{ url('/riwayat') }}">Riwayat Pinjaman</a>
                         <a class="dropdown-item" href="{{ url('/rekapitulasi') }}">Rekapitulasi</a>
                         <a class="dropdown-item" href="/ubahpassword">Ubah Password</a>
-                        <a class="dropdown-item text-danger" href="/login">Logout</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">Logout</button>
+                        </form>
                     </div>
                 </li>
+                @else
+                {{-- Login --}}
+                <a href="{{ url('/login') }}" class="btn btn-primary align-self-center ms-4">Login</a>
+                @endauth
             </ul>
         </div>
     </div>

@@ -16,10 +16,10 @@
                 </div>
                 <div class="mx-3">
                     <p class="fs-6 font-weight-bold text-dark p-0 m-0">
-                        Nama Pengguna
+                        {{ Auth::user()->nama }}
                     </p>
                     <p class="fw-light text-gray-500 p-0 m-0" style="font-size: 12px">
-                        Role Pengguna
+                        {{ Auth::user()->role->role }}
                     </p>
                 </div>
             </a>
@@ -31,10 +31,13 @@
                     Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                </a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </button>
+                </form>
             </div>
         </li>
 
