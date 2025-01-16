@@ -49,6 +49,7 @@
                                     <img src="{{ $itemBuku->sampul ? Storage::url($itemBuku->sampul) : asset('assets/images/default_cover_book.jpg') }}" 
                                          onerror="this.onerror=null;this.src='{{ asset('assets/images/default_cover_book.jpg') }}';" 
                                          class="img-fluid rounded shadow" width="60px">
+                                </td>
                                 <td class="align-middle">{{ $itemBuku->judul }}</td>
                                 <td class="align-middle">{{ $itemBuku->penulis }}</td>
                                 <td class="align-middle">{{ $itemBuku->penerbit }}</td>
