@@ -32,6 +32,21 @@
 <div class="overlay"></div>
 <div class="card shadow py-5 px-3 rounded-3">
     <div class="card-body">
+        {{-- Alert --}}
+        @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if (session()->has('error'))
+        <div class="alert alert-warning alert-dismissible fade show mb-4" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         {{-- Logo --}}
         <div class="d-flex justify-content-center mb-4">
             <img src="{{ asset('/assets/images/tut-wuri-handayani.png') }}" alt="Logo" width="80" height="80">
@@ -39,13 +54,14 @@
 
         {{-- Judul Card --}}
         <h4 class="text-center mb-4">Login ke Perpustakaan SMAN 3 Tualang</h4>
-        <form>
+        <form action="{{ url('/login') }}" method="POST">
+            @csrf
             <!-- Email Input -->
             <div class="mb-3 position-relative">
                 <label for="email" class="form-label">Email</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input type="email" id="email" class="form-control" placeholder="Ketikkan email Anda" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Ketikkan email Anda" required>
                 </div>
             </div>
 
@@ -54,7 +70,7 @@
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                    <input type="password" id="password" class="form-control border-end-0" placeholder="Ketikkan password Anda" required>
+                    <input type="password" id="password" name="password" class="form-control border-end-0" placeholder="Ketikkan password Anda" required>
                     <div class="input-group-append">
                         <button class="btn h-100 border border-start-0" style="border-radius: 0 10px 10px 0; border-color:#9e9e9e" type="button" id="togglePassword">
                             <i class="bi bi-eye-fill" id="eyeIcon"></i>
