@@ -66,7 +66,7 @@ class Koleksibukuadmin extends Component
         if ($this->sampul) {
             try {
                 $extension = $this->sampul->getClientOriginalExtension();
-                $sampulPath = $this->sampul->storeAs('assets/sampulbuku', $slug . '.' . $extension, 'public');
+                $sampulPath = $this->sampul->storeAs('sampulbuku', $slug . '.' . $extension, 'public');
             } catch (\Exception $e) {
                 return redirect('/admin/koleksi-buku')->with('error', 'Gagal mengunggah sampul buku.');
             }
@@ -125,7 +125,7 @@ class Koleksibukuadmin extends Component
                 }
 
                 $extension = $this->sampul->getClientOriginalExtension();
-                $sampulPath = $this->sampul->storeAs('assets/sampulbuku', $slug . '.' . $extension, 'public');
+                $sampulPath = $this->sampul->storeAs('sampulbuku', $slug . '.' . $extension, 'public');
             }
 
             $updateData = [
