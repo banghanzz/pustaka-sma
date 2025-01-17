@@ -26,6 +26,9 @@ Route::get('/visi-misi', [VIsiMisiController::class, 'index']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/kartu-perpustakaan', [KartuPerpustakaanController::class, 'index']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/keranjang/add/{id}', [KeranjangController::class, 'addToKeranjang'])->name('keranjang.add');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'removeFromKeranjang'])->name('keranjang.remove');
+    Route::post('/keranjang/ajukan', [KeranjangController::class, 'ajukanPinjaman'])->name('keranjang.ajukan');
 
     Route::group(['middleware' => 'role:1,999'], function () {
         Route::get('/admin/dashboard', [DashboardController::class, 'index']);
