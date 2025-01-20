@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Keranjang;
 
 class LoginController extends Controller
 {
@@ -26,6 +27,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
+
+            Keranjang::firstOrCreate(
+                ['users_id' => $user->id, 'status_keranjang' => 'pending'],
+                ['created_at' => now(), 'updated_at' => now()]
+            );
+
             if ($user->roles_id == 1 || $user->roles_id == 999) {
                 return redirect('/admin/dashboard')->with('success', 'Login berhasil');
             } else {
