@@ -9,7 +9,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Total Buku</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">1234</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalBuku }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-book fa-2x text-gray-300"></i>
@@ -27,7 +27,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Sedang Dipinjam</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">56</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $sedangDipinjam }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-book-reader fa-2x text-gray-300"></i>
@@ -45,7 +45,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Selesai Dipinjam</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $selesaiDipinjam }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-check-double fa-2x text-gray-300"></i>
@@ -74,6 +74,21 @@
             </div>
         </div>
 
+        {{-- Alert --}}
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         {{-- Peminjaman Perlu Disetujui --}}
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -85,7 +100,7 @@
                         <thead class="">
                             <tr>
                                 <th class="" width="">#</th>
-                                <th class="" width="">Kode Peminjam</th>
+                                <th class="" width="">Nomor Peminjaman</th>
                                 <th class="" width="">Nama Peminjam</th>
                                 <th class="" width="">Buku Dipinjam</th>
                                 <th class="" width="">Lokasi Buku</th>
@@ -96,24 +111,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle">
-                                    <div class="alert alert-warning text-center m-0" role="alert">
-                                        Menunggu persetujuan
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <button type="button" class="btn btn-primary btn-sm w-100 mb-2">Setujui</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm w-100">Tidak Setujui</button>
-                                </td>
-                            </tr>
+                            @foreach ($latestPeminjaman as $itemPeminjaman)
+                                <tr>
+                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                    <td class="align-middle">{{ $itemPeminjaman->nomor_pinjaman }}</td>
+                                    <td class="align-middle">{{ $itemPeminjaman->keranjang->user->nama }}</td>
+                                    <td class="align-middle">{{ $itemPeminjaman->buku->judul ?? 'Data Buku tidak ditemukan' }}</td>
+                                    <td class="align-middle">Rak {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
+                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
+                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
+                                    <td class="align-middle">
+                                        <div class="alert alert-warning text-center m-0" role="alert">
+                                            Menunggu persetujuan
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button wire:click="approvePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-primary btn-sm w-100 mb-2">Setujui</button>
+                                        <button wire:click="cancelPeminjaman({{ $itemPeminjaman->id }})" class="btn btn-outline-danger btn-sm w-100">Tidak Setujui</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -131,7 +148,7 @@
                         <thead class="">
                             <tr>
                                 <th class="" width="">#</th>
-                                <th class="" width="">Kode Peminjam</th>
+                                <th class="" width="">Nomor Peminjaman</th>
                                 <th class="" width="">Nama Peminjam</th>
                                 <th class="" width="">Buku Dipinjam</th>
                                 <th class="" width="">Lokasi Buku</th>
@@ -142,24 +159,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle">
-                                    <div class="alert alert-info text-center m-0" role="alert">
-                                        Sedang Dipinjam
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <button type="button" class="btn btn-primary btn-sm w-100 mb-2">Sudah Kembali</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm w-100">Hubungi Peminjam</button>
-                                </td>
-                            </tr>
+                            @foreach ($sedangDipinjamList as $itemPeminjaman)
+                                <tr>
+                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                    <td class="align-middle">{{ $itemPeminjaman->nomor_pinjaman }}</td>
+                                    <td class="align-middle">{{ $itemPeminjaman->keranjang->user->nama }}</td>
+                                    <td class="align-middle">{{ $itemPeminjaman->buku->judul ?? 'Data Buku tidak ditemukan' }}</td>
+                                    <td class="align-middle">Rak {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
+                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
+                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
+                                    <td class="align-middle">
+                                        <div class="alert alert-info text-center m-0" role="alert">
+                                            Sedang Dipinjam
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button wire:click="completePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-primary btn-sm w-100 mb-2">Sudah Kembali</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm w-100">Hubungi Peminjam</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
