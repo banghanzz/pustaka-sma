@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
-class Koleksibukuadmin extends Component
+class KoleksiBukuAdmin extends Component
 {
     use WithFileUploads;
 
