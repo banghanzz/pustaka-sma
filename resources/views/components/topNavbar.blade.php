@@ -31,7 +31,7 @@
             {{-- Right Side Nav Item --}}
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {{-- Keranjang --}}
-                <li class="nav-item d-flex align-items-center justify-content-center position-relative">
+                <li class="nav-item d-flex align-items-center justify-content-center position-relative me-3">
                     <a class="nav-link d-flex align-items-center p-0 {{ $title === 'Keranjang' ? 'active fw-semibold' : '' }}"
                         href="{{ url('/keranjang') }}">
                         <i class="bi {{ $title === 'Keranjang' ? 'bi-cart-fill' : 'bi-cart' }} fs-4 me-1"></i>Keranjang
