@@ -63,7 +63,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                     Buku Rusak</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $bukuRusak }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-book-dead fa-2x text-gray-300"></i>

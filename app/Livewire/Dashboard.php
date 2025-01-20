@@ -6,10 +6,11 @@ use App\Models\Buku;
 use Livewire\Component;
 use App\Models\DetailPeminjaman;
 use App\Models\Keranjang;
+use App\Models\BukuRusak;
 
 class Dashboard extends Component
 {
-    public $totalBuku, $sedangDipinjam, $selesaiDipinjam, $bukuRusak;
+    public $totalBuku, $sedangDipinjam, $selesaiDipinjam, $totalBukuRusak, $bukuRusakRingan, $bukuRusakSedang, $bukuRusakBerat;
     public $latestPeminjaman, $sedangDipinjamList;
 
     public function mount()
@@ -17,7 +18,10 @@ class Dashboard extends Component
         $this->totalBuku = Buku::count();
         $this->sedangDipinjam = DetailPeminjaman::where('status_peminjaman', 'dipinjam')->count();
         $this->selesaiDipinjam = DetailPeminjaman::where('status_peminjaman', 'selesai')->count();
-        // $this->bukuRusak = Buku::where('kondisi', 'rusak')->count();
+        $this->bukuRusakRingan = BukuRusak::sum('rusak_ringan');
+        $this->bukuRusakSedang = BukuRusak::sum('rusak_sedang');
+        $this->bukuRusakBerat = BukuRusak::sum('rusak_berat');
+        $this->totalBukuRusak = $this->bukuRusakRingan + $this->bukuRusakSedang + $this->bukuRusakBerat;
         $this->getLatestPeminjaman();
         $this->getSedangDipinjamList();
     }
@@ -28,7 +32,7 @@ class Dashboard extends Component
             'totalBuku' => $this->totalBuku,
             'sedangDipinjam' => $this->sedangDipinjam,
             'selesaiDipinjam' => $this->selesaiDipinjam,
-            // 'bukuRusak' => $this->bukuRusak,
+            'bukuRusak' => $this->totalBukuRusak,
             'latestPeminjaman' => $this->latestPeminjaman ?? collect(),
             'sedangDipinjamList' => $this->sedangDipinjamList ?? collect(),
         ]);
