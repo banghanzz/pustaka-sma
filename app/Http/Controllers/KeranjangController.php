@@ -14,10 +14,6 @@ class KeranjangController extends Controller
         $keranjang = Keranjang::where('users_id', Auth::id())->where('status_keranjang', 'pending')->first();
         $detailPeminjaman = $keranjang ? $keranjang->detailPeminjaman : collect([]);
 
-        if ($keranjang) {
-            $this->checkAndCompleteKeranjang($keranjang->id);
-        }
-
         return view('frontpage.keranjang', [
             'title' => 'Keranjang',
             'keranjang' => $keranjang,
@@ -38,12 +34,16 @@ class KeranjangController extends Controller
             return redirect()->back()->with('error', 'Anda hanya bisa meminjam maksimal 2 buku.');
         }
 
-        DetailPeminjaman::create([
+        try {
+            DetailPeminjaman::create([
             'keranjang_id' => $keranjang->id,
             'buku_id' => $request->buku_id,
             'jumlah' => '1',
             'status_peminjaman' => 'keranjang',
-        ]);
+            ]);
+        } catch (\Exception $e) {
+            return redirect('/koleksi-buku');
+        }
 
         return redirect()->back()->with('success', 'Buku berhasil ditambahkan ke keranjang.');
     }
@@ -79,21 +79,5 @@ class KeranjangController extends Controller
         }
 
         return redirect()->back()->with('error', 'Keranjang tidak ditemukan.');
-    }
-
-    public function checkAndCompleteKeranjang($keranjangId)
-    {
-        $keranjang = Keranjang::find($keranjangId);
-
-        if ($keranjang) {
-            $statuses = $keranjang->detailPeminjaman->pluck('status_peminjaman')->all();
-
-            if (count($statuses) > 0 && collect($statuses)->every(function ($status) {
-                return in_array($status, ['dibatalkan', 'selesai']);
-            })) {
-                $keranjang->update(['status_keranjang' => 'completed']);
-                return redirect()->back()->with('success', 'Keranjang berhasil diselesaikan.');
-            }
-        }
     }
 }
