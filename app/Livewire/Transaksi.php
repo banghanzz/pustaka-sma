@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\DetailPeminjaman;
+use App\Models\Keranjang;
 
 class Transaksi extends Component
 {
@@ -63,8 +64,28 @@ class Transaksi extends Component
             ]);
             session()->flash('success', 'Peminjaman selesai.');
             $this->getDetailPeminjaman(); // Refresh data
+
+            $keranjangId = $detail->keranjang_id;
+            $this->checkAndCompleteKeranjang($keranjangId);
+
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
+        }
+    }
+
+    public function checkAndCompleteKeranjang($keranjangId)
+    {
+        $keranjangCheck = Keranjang::find($keranjangId);
+
+        if ($keranjangCheck) {
+            $statuses = $keranjangCheck->detailPeminjaman->pluck('status_peminjaman')->all();
+
+            if (count($statuses) > 0 && collect($statuses)->every(function ($status) {
+                return in_array($status, ['dibatalkan', 'selesai']);
+            })) {
+                $keranjangCheck->update(['status_keranjang' => 'completed']);
+                session()->flash('success', 'Keranjang berhasil diselesaikan.');
+            }
         }
     }
 }
