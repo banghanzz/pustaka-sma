@@ -112,8 +112,9 @@
 
         @if ($detailPeminjaman->filter(function($item) {
             return in_array($item->status_peminjaman, ['keranjang']);
-        })->isNotEmpty())            {{-- Button Ajukan Pinjaman --}}
-            <div class="row justify-content-center">
+            })->isNotEmpty())
+            {{-- Button Ajukan Pinjaman --}}
+            <div class="row justify-content-center mb-5">
                 <div class="col-md-4">
                     <form action="{{ route('keranjang.ajukan') }}" method="POST">
                         @csrf
