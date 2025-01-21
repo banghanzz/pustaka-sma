@@ -15,7 +15,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="rekapTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-striped" id="" width="100%" cellspacing="0">
                         <thead class="">
                             <tr>
                                 <th class="" width="1%">#</th>
@@ -43,6 +43,14 @@
                                     <td class="align-middle text-center">{{ $itemRekapitulasi->rusak_ringan + $itemRekapitulasi->rusak_sedang + $itemRekapitulasi->rusak_berat }}</td>
                                 </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="4" class="align-middle text-center"><strong>Total</strong></td>
+                                <td class="align-middle text-center font-weight-bold">{{ $totalJumlah }}</td>
+                                <td class="align-middle text-center font-weight-bold">{{ $totalRusakRingan }}</td>
+                                <td class="align-middle text-center font-weight-bold">{{ $totalRusakSedang }}</td>
+                                <td class="align-middle text-center font-weight-bold">{{ $totalRusakBerat }}</td>
+                                <td class="align-middle text-center font-weight-bold">{{ $totalRusak }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
