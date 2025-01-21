@@ -37,8 +37,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/admin/kategori', [DashboardController::class, 'kategori']);
         Route::get('/admin/koleksi-buku', [DashboardController::class, 'koleksibuku']);
         Route::get('/admin/buku-rusak', [DashboardController::class, 'bukurusak']);
-        Route::get('/admin/rekapitulasi', [DashboardController::class, 'rekapitulasi']);
         Route::get('/admin/anggota-perpustakaan', [DashboardController::class, 'anggota']);
+        Route::get('/admin/rekapitulasi', [DashboardController::class, 'rekapitulasi']);
+        Route::get('/admin/rekapitulasi/download-pdf', [RekapitulasiController::class, 'downloadPDF'])->name('rekapitulasi.downloadPDF');
+        Route::get('/admin/tata-tertib', [TataTertibController::class, 'adminVIew']);
+        Route::get('/admin/visi-misi', [VIsiMisiController::class, 'adminView']);
     });
 
     Route::group(['middleware' => 'role:2,3,4,999'], function () {
