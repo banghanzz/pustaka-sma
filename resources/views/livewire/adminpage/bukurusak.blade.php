@@ -2,7 +2,7 @@
     <div class="px-5">
         {{-- Add Data Button --}}
         <div class="py-4">
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambahBukuRusakModal">+ Data Kategori Buku</a>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambahBukuRusakModal">+ Data Buku Rusak</a>
         </div>
 
         {{-- Alert --}}
