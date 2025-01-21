@@ -22,8 +22,19 @@
             <span class="input-group-text h-100 bg-white border-end-0 text-dark">
                 <i class="bi bi-search"></i>
             </span>
-            <input type="text" wire:model="search" class="form-control border-start-0 ps-0"
+            <input type="text" wire:model.lazy="search" class="form-control border-start-0 ps-0"
                 placeholder="Ketik buku yang ingin kamu cari lalu tekan Enter">
+        </div>
+
+        <!-- Filter Kategori -->
+        <div class="mb-4 col-4">
+            <label for="kategori" class="form-label">Filter berdasarkan Kategori:</label>
+            <select id="kategori" wire:model.lazy="selectedKategori" class="form-select">
+                <option value="">Semua Kategori</option>
+                @foreach ($kategoriList as $kategori)
+                    <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
+                @endforeach
+            </select>
         </div>
 
         <!-- Koleksi Buku -->
@@ -95,13 +106,24 @@
                                         {{ $selectedBook->rak->baris }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-start px-0">Stok Tersedia</th>
+                                    <th class="text-start px-0">Stok Buku</th>
                                     <td class="text-center">:</td>
                                     <td class="text-start">
                                         @if ($selectedBook->stok > 0)
-                                            <span class="text-success">{{ $selectedBook->stok }}</span>
+                                            <span class="text-success">{{ $selectedBook->stok }} </span>
                                         @else
                                             <span class="text-danger">Kosong</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start px-0">Sedang dipinjam</th>
+                                    <td class="text-center">:</td>
+                                    <td class="text-start">
+                                        @if ($jumlahDipinjam > 0)
+                                            <span class="text-danger">{{ $jumlahDipinjam }}</span>
+                                        @else
+                                            <span class="text-dark">-</span>
                                         @endif
                                     </td>
                                 </tr>
