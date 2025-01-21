@@ -14,4 +14,11 @@ class VIsiMisiController extends Controller
             'visi_misi' => VIsiMisi::all(),
         ]);
     }
+
+    public function adminView()
+    {
+        return view('adminpage.visimisi',[
+            'title' => 'Visi & Misi',
+        ]);
+    }
 }
