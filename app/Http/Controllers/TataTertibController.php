@@ -14,4 +14,11 @@ class TataTertibController extends Controller
             'tata_tertib' => TataTertib::all(),
         ]);
     }
+
+    public function adminView()
+    {
+        return view('adminpage.tatatertib',[
+            'title' => 'Tata Tertib',
+        ]);
+    }
 }
