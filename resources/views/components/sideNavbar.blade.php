@@ -72,6 +72,18 @@
             <span>Anggota Perpustakaan</span>
         </a>
     </li>
+    <li class="nav-item {{ $title === 'Tata Tertib' ? 'active font-weight-bold' : '' }}">
+        <a class="nav-link" href="{{ url('/admin/tata-tertib') }}">
+            <i class="bi bi-clipboard-fill"></i>
+            <span>Tata Tertib</span>
+        </a>
+    </li>
+    <li class="nav-item {{ $title === 'Visi & Misi' ? 'active font-weight-bold' : '' }}">
+        <a class="nav-link" href="{{ url('/admin/visi-misi') }}">
+            <i class="bi bi-clipboard-fill"></i>
+            <span>Visi & Misi</span>
+        </a>
+    </li>
 
 
     <!-- Divider -->
