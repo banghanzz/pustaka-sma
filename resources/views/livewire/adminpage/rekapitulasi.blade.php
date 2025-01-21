@@ -27,25 +27,22 @@
                                 <th class="" width="">Rusak Sedang</th>
                                 <th class="" width="">Rusak Berat</th>
                                 <th class="" width="">Total Rusak</th>
-                                <th class="" width="10%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle d-flex">
-                                    <button type="button" class="btn btn-outline-primary btn-sm w-100 mr-2">Ubah</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm w-100">Hapus</button>
-                                </td>
-                            </tr>
+                            @foreach ($rekapitulasi as $itemRekapitulasi)   
+                                <tr>
+                                    <td class="align-middle">{{ $loop->iteration }}</td>
+                                    <td class="align-middle">{{ $itemRekapitulasi->buku->judul }}</td>
+                                    <td class="align-middle">{{ $itemRekapitulasi->buku->penulis }}</td>
+                                    <td class="align-middle">{{ $itemRekapitulasi->buku->kategori->nama }}</td>
+                                    <td class="align-middle text-center">{{ $itemRekapitulasi->buku->stok }}</td>
+                                    <td class="align-middle text-center">{{ $itemRekapitulasi->rusak_ringan }}</td>
+                                    <td class="align-middle text-center">{{ $itemRekapitulasi->rusak_sedang }}</td>
+                                    <td class="align-middle text-center">{{ $itemRekapitulasi->rusak_berat }}</td>
+                                    <td class="align-middle text-center">{{ $itemRekapitulasi->rusak_ringan + $itemRekapitulasi->rusak_sedang + $itemRekapitulasi->rusak_berat }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -54,7 +51,7 @@
 
         {{-- Add Data Button --}}
         <div class="">
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#"><i class="bi bi-file-earmark-arrow-down mr-2"></i>Download PDF</a>
+            <a href="{{ route('rekapitulasi.downloadPDF') }}" class="btn btn-primary" target="_blank"><i class="bi bi-file-earmark-arrow-down mr-2"></i>Download PDF</a>
         </div>
         
     </div>
