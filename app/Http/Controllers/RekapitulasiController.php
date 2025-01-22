@@ -6,6 +6,7 @@ use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use App\Models\BukuRusak as ModelsBukuRusak;
 use App\Models\Buku;
+use App\Models\User;
 
 class RekapitulasiController extends Controller
 {
@@ -45,6 +46,8 @@ class RekapitulasiController extends Controller
             'totalRusak' => $rekapitulasi->sum('rusak_ringan') + $rekapitulasi->sum('rusak_sedang') + $rekapitulasi->sum('rusak_berat'),
             'currentMonth' => date('F'),
             'currentYear' => date('Y'),
+            'kepsek' => User::where('roles_id', 2)->first(),
+            'pustakawan' => User::where('roles_id', 1)->first(),
         ];
 
         $pdf = app('dompdf.wrapper');

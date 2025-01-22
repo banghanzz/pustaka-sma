@@ -13,20 +13,6 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        .header {
-            margin-bottom: 20px;
-        }
-        .header img {
-            width: 100px;
-            height: auto;
-            margin-right: 0px;
-            float: left;
-        }
-        .header .title {
-            text-align: left;
-            display: inline-block;
-            vertical-align: top;
-        }
         .content {
             margin: 20px;
         }
@@ -58,29 +44,37 @@
             border-collapse: collapse;
         }
         .borderless-table th, .borderless-table td {
-            border: none;
-            text-align: left;
-            padding: 8px;
+            border: none !important;
+            text-align: left !important;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="{{ public_path('/assets/images/tut-wuri-handayani.png') }}" alt="Logo SMA Negeri 3 Tualang">
-        <div class="title">
-            <h2>Perpustakaan Pijar Cakrawala SMA Negeri 3 Tualang</h2>
-            <p>Jl. AMD Pinang Sebatang Timur</p>
-        </div>
-    </div>
+    <table style="border-bottom: 1px solid black !important;" width="100%">
+        <tr>
+            <td>
+                <img width="100px" height="100px" src="{{ public_path('/assets/images/tut-wuri-handayani.png') }}" alt="Logo SMA Negeri 3 Tualang">
+            </td>
+            <td style="text-align: center;">
+                <div class="title"
+                    <h2>Perpustakaan Pijar Cakrawala <br>SMA Negeri 3 Tualang</h2>
+                    <p style="line-height: 5px;">Jl. AMD Pinang Sebatang Timur</p>
+                </div>
+            </td>
+            <td style="color: white !important;">
+                <p>lorem ipsum</p>
+            </td>
+        </tr>
+    </table>
     <div class="content">
         <h3>Laporan Data Keadaan Buku Perpustakaan SMA Negeri 3 Tualang</h3>
         <table class="borderless-table">
             <tr>
-                <td>Bulan</td>
+                <td width="20%">Bulan</td>
                 <td>: {{ $currentMonth }}</td>
             </tr>
             <tr>
-                <td>Tahun</td>
+                <td width="20%">Tahun</td>
                 <td>: {{ $currentYear }}</td>
             </tr>
         </table>
@@ -131,15 +125,15 @@
             <tr>
                 <td>
                     Mengetahui,<br>
-                    Kepala Sekolah SMA Negeri 3 Tualang<br><br><br>
-                    <strong>Nama</strong><br>
-                    NIP. 0000000000000000
+                    Kepala Sekolah SMA Negeri 3 Tualang<br><br><br><br><br><br>
+                    <strong>{{ $kepsek->nama }}</strong><br>
+                    NIP. {{ $kepsek->nomor_induk }}
                 </td>
                 <td>
                     Perawang, 01 Januari 2025<br>
-                    Kepala Perpustakaan<br><br><br>
-                    <strong>Nama</strong><br>
-                    NIP. 0000000000000000
+                    Kepala Perpustakaan<br><br><br><br><br><br>
+                    <strong>{{ $pustakawan->nama }}</strong><br>
+                    NIP. {{ $pustakawan->nomor_induk }}
                 </td>
             </tr>
         </table>
