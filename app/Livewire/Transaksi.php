@@ -17,11 +17,11 @@ class Transaksi extends Component
             'detailPeminjaman' => $this->detailPeminjaman,
         ]);
     }
-    
+
     public function getDetailPeminjaman()
     {
         $query = DetailPeminjaman::orderBy('id', 'desc');
-        
+
         // Apply filters
         switch ($this->activeFilter) {
             case 'menunggu':
@@ -46,7 +46,7 @@ class Transaksi extends Component
         $this->activeFilter = $filter;
         $this->getDetailPeminjaman();
     }
-    
+
     public function mount()
     {
         $this->getDetailPeminjaman();
@@ -74,6 +74,10 @@ class Transaksi extends Component
                 'status_peminjaman' => 'dibatalkan',
             ]);
             session()->flash('success', 'Peminjaman dibatalkan.');
+
+            $keranjangId = $detail->keranjang_id;
+            $this->checkAndCompleteKeranjang($keranjangId);
+
             $this->getDetailPeminjaman(); // Refresh data
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
@@ -92,7 +96,6 @@ class Transaksi extends Component
 
             $keranjangId = $detail->keranjang_id;
             $this->checkAndCompleteKeranjang($keranjangId);
-
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
         }
@@ -103,11 +106,16 @@ class Transaksi extends Component
         $keranjangCheck = Keranjang::find($keranjangId);
 
         if ($keranjangCheck) {
-            $statuses = $keranjangCheck->detailPeminjaman->pluck('status_peminjaman')->all();
+            // Ambil semua status dari detail peminjaman dalam keranjang
+            $detailPeminjaman = $keranjangCheck->detailPeminjaman;
 
-            if (count($statuses) > 0 && collect($statuses)->every(function ($status) {
-                return in_array($status, ['dibatalkan', 'selesai']);
-            })) {
+            // Cek apakah semua status adalah 'dibatalkan' atau 'selesai'
+            $allCompleted = $detailPeminjaman->every(function ($detail) {
+                return in_array($detail->status_peminjaman, ['dibatalkan', 'selesai']);
+            });
+
+            // Jika semua status sudah selesai atau dibatalkan
+            if ($allCompleted) {
                 $keranjangCheck->update(['status_keranjang' => 'completed']);
                 session()->flash('success', 'Keranjang berhasil diselesaikan.');
             }
