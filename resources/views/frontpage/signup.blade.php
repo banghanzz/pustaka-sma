@@ -116,8 +116,8 @@
                 <label for="roles_id" class="form-label">Level Pengguna</label>
                 <select id="roles_id" name="roles_id" class="form-select" required>
                     <option value="" disabled selected>Pilih Level Pengguna</option>
-                    <option value="1">Guru</option>
-                    <option value="2">Siswa</option>
+                    <option value="3">Guru</option>
+                    <option value="4">Siswa</option>
                 </select>
             </div>
 
