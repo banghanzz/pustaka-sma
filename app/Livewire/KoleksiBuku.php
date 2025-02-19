@@ -5,8 +5,11 @@ namespace App\Livewire;
 use App\Models\Buku;
 use Livewire\Component;
 use App\Models\Kategori;
+use App\Models\Keranjang;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class KoleksiBuku extends Component
 {
@@ -27,6 +30,23 @@ class KoleksiBuku extends Component
     public function mount()
     {
         $this->kategoriList = Kategori::all();
+
+        // Buat atau ambil keranjang untuk user yang login
+        if (Auth::check()) {
+            try {
+                Keranjang::updateOrCreate(
+                    [
+                        'users_id' => Auth::id(),
+                        'status_keranjang' => 'pending'
+                    ],
+                    [
+                        'updated_at' => now()
+                    ]
+                );
+            } catch (\Exception $e) {
+                Log::error('Error creating cart in KoleksiBuku: ' . $e->getMessage());
+            }
+        }
     }
 
     public function selectBook($id)
