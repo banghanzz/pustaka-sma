@@ -9,6 +9,7 @@ use App\Models\Keranjang;
 class Transaksi extends Component
 {
     public $detailPeminjaman;
+    public $activeFilter = 'semua';
 
     public function render()
     {
@@ -19,7 +20,31 @@ class Transaksi extends Component
     
     public function getDetailPeminjaman()
     {
-        $this->detailPeminjaman = DetailPeminjaman::orderBy('id', 'desc')->get();
+        $query = DetailPeminjaman::orderBy('id', 'desc');
+        
+        // Apply filters
+        switch ($this->activeFilter) {
+            case 'menunggu':
+                $query->where('status_peminjaman', 'menunggu');
+                break;
+            case 'dipinjam':
+                $query->where('status_peminjaman', 'dipinjam');
+                break;
+            case 'selesai':
+                $query->where('status_peminjaman', 'selesai');
+                break;
+            default:
+                // 'semua' - no filter needed
+                break;
+        }
+
+        $this->detailPeminjaman = $query->get();
+    }
+
+    public function setFilter($filter)
+    {
+        $this->activeFilter = $filter;
+        $this->getDetailPeminjaman();
     }
     
     public function mount()

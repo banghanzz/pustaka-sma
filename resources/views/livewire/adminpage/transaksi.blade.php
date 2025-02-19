@@ -18,19 +18,26 @@
         {{-- Filter --}}
         <ul class="nav nav-pills mb-3">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Semua</a>
+                <a class="nav-link {{ $activeFilter === 'semua' ? 'active' : '' }}" 
+                   href="#" 
+                   wire:click.prevent="setFilter('semua')">Semua</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Perlu Disetujui</a>
+                <a class="nav-link {{ $activeFilter === 'menunggu' ? 'active' : '' }}" 
+                   href="#" 
+                   wire:click.prevent="setFilter('menunggu')">Perlu Disetujui</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Sedang Dipinjam</a>
+                <a class="nav-link {{ $activeFilter === 'dipinjam' ? 'active' : '' }}" 
+                   href="#" 
+                   wire:click.prevent="setFilter('dipinjam')">Sedang Dipinjam</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Selesai</a>
+                <a class="nav-link {{ $activeFilter === 'selesai' ? 'active' : '' }}" 
+                   href="#" 
+                   wire:click.prevent="setFilter('selesai')">Selesai</a>
             </li>
         </ul>
-
         {{-- Card Table --}}
         <div class="card shadow mb-4">
             <div class="card-header py-3">
