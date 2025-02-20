@@ -37,6 +37,7 @@
                                 <th class="" width="">Alamat</th>
                                 <th class="" width="">Email</th>
                                 <th class="" width="">No Telegram</th>
+                                <th class="" width="">Chat ID</th>
                                 <th class="" width="">Level Anggota</th>                                
                                 <th class="" width="10%">Aksi</th>
                             </tr>
@@ -55,6 +56,7 @@
                                 <td class="align-middle">{{ $itemAnggota->alamat }}</td>
                                 <td class="align-middle">{{ $itemAnggota->email }}</td>
                                 <td class="align-middle">{{ $itemAnggota->nomor_telegram }}</td>
+                                <td class="align-middle">{{ $itemAnggota->chat_id ?? '-' }}</td>
                                 <td class="align-middle">{{ $itemAnggota->role->role }}</td>
                                 <td class="align-middle text-center">
                                     <div class="d-flex justify-content-center">

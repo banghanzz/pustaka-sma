@@ -12,13 +12,14 @@ class Anggota extends Component
 {
     use WithFileUploads;
 
-    public $nama, $nomor_induk, $alamat, $nomor_telegram, $role, $roles_id, $kelas, $foto_profil, $email, $password, $anggotaId;
+    public $nama, $nomor_induk, $alamat, $nomor_telegram, $chat_id, $role, $roles_id, $kelas, $foto_profil, $email, $password, $anggotaId;
 
     protected $rules = [
         'nama' => 'required|string|max:255',
         'nomor_induk' => 'required|string|max:255',
         'alamat' => 'required|string|max:255',
         'nomor_telegram' => 'required|string|max:255',
+        'chat_id' => 'required|string|max:255',
         'roles_id' => 'required|integer',
         'kelas' => 'nullable|string|max:255',
         'foto_profil' => 'nullable|image|max:1024', // 1MB Max
@@ -42,6 +43,7 @@ class Anggota extends Component
         $this->nomor_induk = '';
         $this->alamat = '';
         $this->nomor_telegram = '';
+        $this->chat_id = '';
         $this->roles_id = '';
         $this->kelas = '';
         $this->foto_profil = '';
@@ -81,6 +83,7 @@ class Anggota extends Component
             'nomor_induk' => $this->nomor_induk,
             'alamat' => $this->alamat,
             'nomor_telegram' => $this->nomor_telegram,
+            'chat_id' => $this->chat_id,
             'roles_id' => $this->roles_id,
             'kelas' => $this->kelas,
             'foto_profil' => $fotoPath,
@@ -100,6 +103,7 @@ class Anggota extends Component
         $this->nomor_induk = $anggota->nomor_induk;
         $this->alamat = $anggota->alamat;
         $this->nomor_telegram = $anggota->nomor_telegram;
+        $this->chat_id = $anggota->chat_id;
         $this->role = $anggota->role->role;
         $this->roles_id = $anggota->roles_id;
         $this->kelas = $anggota->kelas;
@@ -113,6 +117,7 @@ class Anggota extends Component
             'nomor_induk' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'nomor_telegram' => 'required|string|max:255',
+            'chat_id' => 'required|string|max:255',
             'roles_id' => 'required|integer',
             'kelas' => 'nullable|string|max:255',
             'foto_profil' => 'nullable|image|max:1024', // 1MB Max
@@ -138,6 +143,7 @@ class Anggota extends Component
                 'nomor_induk' => $this->nomor_induk,
                 'alamat' => $this->alamat,
                 'nomor_telegram' => $this->nomor_telegram,
+                'chat_id' => $this->chat_id,
                 'roles_id' => $this->roles_id,
                 'kelas' => $this->kelas,
                 'foto_profil' => $fotoPath,

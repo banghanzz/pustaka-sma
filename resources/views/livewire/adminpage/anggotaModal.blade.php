@@ -36,6 +36,15 @@
                         <input type="text" id="nomor_telegram" class="form-control" placeholder="Masukkan nomor Telegram" wire:model="nomor_telegram" required>
                     </div>
 
+                    <!-- Chat ID Telegram Input -->
+                    <div class="mb-3 form-group">
+                        <label for="chat_id" class="text-dark">Chat ID Telegram</label>
+                        <input type="text" id="chat_id" class="form-control" placeholder="Masukkan Chat ID Telegram" wire:model="chat_id" required>
+                        <a href="{{ url('/tutorial-chat-id') }}" class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
+                            Lihat Tutorial Mendapatkan Chat ID Telegram
+                        </a>
+                    </div>
+
                     <!-- Level Pengguna Input -->
                     <div class="mb-3 form-group">
                         <label for="roles_id" class="text-dark">Level Pengguna</label>
@@ -134,6 +143,15 @@
                     <div class="mb-3 form-group">
                         <label for="nomor_telegram" class="text-dark">Nomor Telegram</label>
                         <input type="text" id="nomor_telegram" class="form-control" placeholder="Masukkan nomor Telegram" wire:model="nomor_telegram" required>
+                    </div>
+
+                    <!-- Chat ID Telegram Input -->
+                    <div class="mb-3 form-group">
+                        <label for="chat_id" class="text-dark">Chat ID Telegram</label>
+                        <input type="text" id="chat_id" class="form-control" placeholder="Masukkan Chat ID Telegram" wire:model="chat_id" required>
+                        <a href="{{ url('/tutorial-chat-id') }}" class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
+                            Lihat Tutorial Mendapatkan Chat ID Telegram
+                        </a>
                     </div>
 
                     <!-- Level Pengguna Input -->
