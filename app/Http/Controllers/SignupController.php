@@ -15,6 +15,13 @@ class SignupController extends Controller
         ]);
     }
 
+    public function tutorial()
+    {
+        return view('frontpage.tutorial-chat-id',[
+            'title' => 'Tutorial Chat ID Telegram',
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -22,6 +29,7 @@ class SignupController extends Controller
             'nomor_induk' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'nomor_telegram' => 'required|string|max:255',
+            'chat_id' => 'required|string|max:255',
             'roles_id' => 'required|integer',
             'kelas' => 'nullable|string|max:255',
             'foto_profil' => 'nullable|image|max:1024', // 1MB Max
@@ -51,6 +59,7 @@ class SignupController extends Controller
             'nomor_induk' => $request->nomor_induk,
             'alamat' => $request->alamat,
             'nomor_telegram' => $request->nomor_telegram,
+            'chat_id' => $request->chat_id,
             'roles_id' => $request->roles_id,
             'kelas' => $request->kelas,
             'foto_profil' => $fotoPath,

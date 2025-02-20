@@ -111,6 +111,18 @@
                 </div>
             </div>
 
+            <!-- Chat ID Telegram Input -->
+            <div class="mb-3 position-relative">
+                <label for="chat_id" class="form-label">Chat ID Telegram</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-chat-left-text-fill"></i></span>
+                    <input type="text" id="chat_id" name="chat_id" class="form-control" placeholder="Masukkan Chat ID Telegram" required>
+                </div>
+                <a href="{{ url('/tutorial-chat-id') }}" class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
+                    Lihat Tutorial Mendapatkan Chat ID Telegram
+                </a>
+            </div>
+
             <!-- Level Pengguna Input -->
             <div class="mb-3 position-relative">
                 <label for="roles_id" class="form-label">Level Pengguna</label>
