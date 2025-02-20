@@ -22,6 +22,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/', [KoleksiBukuController::class, 'index']);
 Route::get('/tata-tertib', [TataTertibController::class, 'index']);
 Route::get('/visi-misi', [VIsiMisiController::class, 'index']);
+Route::get('/tutorial-chat-id', [SignupController::class, 'tutorial']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/kartu-perpustakaan', [KartuPerpustakaanController::class, 'index']);
