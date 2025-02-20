@@ -35,6 +35,7 @@
                                 <th class="" width="">Judul Buku</th>
                                 <th class="" width="">Penulis</th>
                                 <th class="" width="">Penerbit</th>
+                                <th class="" width="">Tahun Ajaran/Terbit</th>
                                 <th class="" width="">Kategori</th>
                                 <th class="" width="">Stok Buku</th>
                                 <th class="" width="">Lokasi Buku</th>
@@ -53,6 +54,7 @@
                                 <td class="align-middle">{{ $itemBuku->judul }}</td>
                                 <td class="align-middle">{{ $itemBuku->penulis }}</td>
                                 <td class="align-middle">{{ $itemBuku->penerbit }}</td>
+                                <td class="align-middle">{{ $itemBuku->tahun_ajaran ?? '-'}}</td>
                                 <td class="align-middle text-center">{{ $itemBuku->kategori->nama ?? 'Data kategori tidak ditemukan' }}</td>
                                 <td class="align-middle text-center">{{ $itemBuku->stok }}</td>
                                 <td class="align-middle">Rak {{ $itemBuku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris {{ $itemBuku->rak->baris ?? '' }}</td>

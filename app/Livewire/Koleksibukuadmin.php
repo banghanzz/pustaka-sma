@@ -14,12 +14,13 @@ class KoleksiBukuAdmin extends Component
 {
     use WithFileUploads;
 
-    public $judul, $penulis, $penerbit, $kategori, $stok, $rak, $sampul, $bukuId;
+    public $judul, $penulis, $penerbit, $tahun_ajaran, $kategori, $stok, $rak, $sampul, $bukuId;
 
     protected $rules = [
         'judul' => 'required|string|max:255',
         'penulis' => 'required|string|max:255',
         'penerbit' => 'required|string|max:255',
+        'tahun_ajaran' => 'required|string|max:255',
         'kategori' => 'required|integer',
         'stok' => 'required|integer',
         'rak' => 'required|integer',
@@ -40,6 +41,7 @@ class KoleksiBukuAdmin extends Component
         $this->judul = '';
         $this->penulis = '';
         $this->penerbit = '';
+        $this->tahun_ajaran = '';
         $this->kategori = '';
         $this->stok = '';
         $this->rak = '';
@@ -76,6 +78,7 @@ class KoleksiBukuAdmin extends Component
             'judul' => $this->judul,
             'penulis' => $this->penulis,
             'penerbit' => $this->penerbit,
+            'tahun_ajaran' => $this->tahun_ajaran,
             'kategori_id' => $this->kategori,
             'stok' => $this->stok,
             'rak_id' => $this->rak,
@@ -94,6 +97,7 @@ class KoleksiBukuAdmin extends Component
         $this->judul = $buku->judul;
         $this->penulis = $buku->penulis;
         $this->penerbit = $buku->penerbit;
+        $this->tahun_ajaran = $buku->tahun_ajaran;
         $this->kategori = $buku->kategori_id;
         $this->stok = $buku->stok;
         $this->rak = $buku->rak_id;
@@ -132,6 +136,7 @@ class KoleksiBukuAdmin extends Component
                 'judul' => $this->judul,
                 'penulis' => $this->penulis,
                 'penerbit' => $this->penerbit,
+                'tahun_ajaran' => $this->tahun_ajaran,
                 'kategori_id' => $this->kategori,
                 'stok' => $this->stok,
                 'rak_id' => $this->rak,

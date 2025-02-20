@@ -25,6 +25,10 @@
                         <input type="text" class="form-control text-dark" id="penerbit" wire:model="penerbit" required placeholder="Ketikkan Nama Penerbit">
                     </div>
                     <div class="form-group">
+                        <label for="tahun_ajaran" class="text-dark">Tahun Ajaran/Terbit</label>
+                        <input type="text" class="form-control text-dark" id="tahun_ajaran" wire:model="tahun_ajaran" required placeholder="Ketikkan Tahun Ajaran/Terbit Buku">
+                    </div>
+                    <div class="form-group">
                         <label for="kategori" class="text-dark">Kategori</label>
                         <select class="form-control text-dark" id="kategori" wire:model="kategori" required>
                             <option value="" selected>Pilih Kategori Buku</option>
@@ -83,6 +87,10 @@
                     <div class="form-group">
                         <label for="penerbit" class="text-dark">Penerbit</label>
                         <input type="text" class="form-control text-dark" id="penerbit" wire:model="penerbit" required placeholder="Ketikkan Nama Penerbit">
+                    </div>
+                    <div class="form-group">
+                        <label for="tahun_ajaran" class="text-dark">Tahun Ajaran/Terbit</label>
+                        <input type="text" class="form-control text-dark" id="tahun_ajaran" wire:model="tahun_ajaran" required placeholder="Ketikkan Tahun Ajaran/Terbit Buku">
                     </div>
                     <div class="form-group">
                         <label for="kategori" class="text-dark">Kategori</label>

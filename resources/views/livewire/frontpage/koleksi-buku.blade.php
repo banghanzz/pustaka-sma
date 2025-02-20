@@ -85,7 +85,7 @@
                         <table class="table table-borderless m-0">
                             <tbody>
                                 <tr>
-                                    <th class="text-start px-0" style="width: 16%;">Penulis</th>
+                                    <th class="text-start px-0" style="width: 20%;">Penulis</th>
                                     <td class="text-center" style="width: 2%;">:</td>
                                     <td class="text-start">{{ $selectedBook->penulis }}</td>
                                 </tr>
@@ -93,6 +93,11 @@
                                     <th class="text-start px-0">Penerbit</th>
                                     <td class="text-center">:</td>
                                     <td class="text-start">{{ $selectedBook->penerbit }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start px-0">Tahun Ajaran/Terbit</th>
+                                    <td class="text-center">:</td>
+                                    <td class="text-start">{{ $selectedBook->tahun_ajaran ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-start px-0">Kategori</th>
