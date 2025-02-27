@@ -79,7 +79,30 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        $('#anggotaTable').DataTable();
+        $('#anggotaTable').DataTable({
+            // Tentukan kolom yang dapat dicari (0-based index)
+            columnDefs: [
+                {
+                    'targets': [3], // kolom NISN/NIP (index 3)
+                    'searchable': true
+                },
+                {
+                    'targets': '_all', // semua kolom lainnya
+                    'searchable': false
+                }
+            ],
+            // Atur pencarian hanya pada kolom NISN/NIP
+            search: {
+                search: '',
+                smart: true,
+                regex: false,
+                caseInsensitive: true
+            },
+            // Ubah label bahasa
+            language: {
+                search: "Cari NISN/NIP:"
+            }
+        });
 
         // Reinitialize DataTables when modal is closed
         $('#ubahAnggotaModal, #hapusAnggotaModal').on('hidden.bs.modal', function () {
