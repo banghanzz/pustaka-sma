@@ -33,7 +33,7 @@
                                 <th class="" width="1%">#</th>
                                 <th class="" width="">Foto Anggota</th>
                                 <th class="" width="">Nama Anggota</th>
-                                <th class="" width="">NISN/NIP</th>
+                                <th class="" width="">NISN/NIP/NIK</th>
                                 <th class="" width="">Alamat</th>
                                 <th class="" width="">Email</th>
                                 <th class="" width="">No Telegram</th>

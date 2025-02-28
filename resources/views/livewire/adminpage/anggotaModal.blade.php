@@ -20,7 +20,7 @@
 
                     <!-- NISN/NIK Input -->
                     <div class="mb-3 form-group">
-                        <label for="nomor_induk" class="text-dark">NISN/NIP</label>
+                        <label for="nomor_induk" class="text-dark">NISN/NIP/NIK</label>
                         <input type="text" id="nomor_induk" class="form-control"  placeholder="Masukkan NISN atau NIP" wire:model="nomor_induk" required>
                     </div>
 
@@ -129,7 +129,7 @@
 
                     <!-- NISN/NIK Input -->
                     <div class="mb-3 form-group">
-                        <label for="nomor_induk" class="text-dark">NISN/NIP</label>
+                        <label for="nomor_induk" class="text-dark">NISN/NIP/NIK</label>
                         <input type="text" id="nomor_induk" class="form-control" placeholder="Masukkan NISN atau NIP" wire:model="nomor_induk" required>
                     </div>
 
@@ -214,7 +214,7 @@
                             <td width="80%" class="text-dark">: {{ $nama }}</td>
                         </tr>
                         <tr>
-                            <td width="20%" class="text-dark">NISN/NIP</td>
+                            <td width="20%" class="text-dark">NISN/NIP/NIK</td>
                             <td width="80%" class="text-dark">: {{ $nomor_induk }}</td>
                         </tr>
                         <tr>

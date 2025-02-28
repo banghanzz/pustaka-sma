@@ -20,7 +20,7 @@
                                 <td class="text-start">{{ Auth::user()->nama }}</td>
                             </tr>
                             <tr>
-                                <th class="text-start px-0">NISN/NIP</th>
+                                <th class="text-start px-0">NISN/NIP/NIK</th>
                                 <td class="text-center">:</td>
                                 <td class="text-start">{{ Auth::user()->nomor_induk }}</td>
                             </tr>

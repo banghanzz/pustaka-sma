@@ -86,7 +86,7 @@
 
             <!-- NISN/NIK Input -->
             <div class="mb-3 position-relative">
-                <label for="nomor_induk" class="form-label">NISN/NIP</label>
+                <label for="nomor_induk" class="form-label">NISN/NIP/NIK</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person-vcard-fill"></i></span>
                     <input type="text" id="nomor_induk" name="nomor_induk" class="form-control" placeholder="Masukkan NISN atau NIK" required>
