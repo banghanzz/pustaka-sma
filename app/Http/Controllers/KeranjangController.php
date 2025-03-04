@@ -29,31 +29,35 @@ class KeranjangController extends Controller
             if (!$request->buku_id) {
                 throw new \Exception('ID Buku tidak ditemukan.');
             }
-    
+
             // Buat atau ambil keranjang yang ada dengan data lengkap
             $keranjang = Keranjang::firstOrCreate(
                 [
-                    'users_id' => Auth::id(), 
-                    'status_keranjang' => 'pending'
+                    'users_id' => Auth::id(),
+                    'status_keranjang' => 'pending',
                 ],
                 [
                     'users_id' => Auth::id(),
                     'status_keranjang' => 'pending',
                     'created_at' => now(),
-                    'updated_at' => now()
-                ]
+                    'updated_at' => now(),
+                ],
             );
-    
+
             // Refresh instance keranjang untuk memastikan data terbaru
             $keranjang = $keranjang->fresh();
-    
+
             // Cek total buku di keranjang
             $totalBuku = DetailPeminjaman::where('keranjang_id', $keranjang->id)->sum('jumlah');
-    
-            if ($totalBuku >= 2) {
-                return redirect()->back()->with('error', 'Anda hanya bisa meminjam maksimal 2 buku.');
+
+            // Akun Siswa hanya dapat meminjam maksimal 2 buku
+            if (Auth::user()->roles_id == 4) {
+                // Siswa
+                if ($totalBuku >= 2) {
+                    return redirect()->back()->with('error', 'Siswa hanya bisa meminjam maksimal 2 buku.');
+                }
             }
-    
+
             // Tambahkan buku ke keranjang dengan data lengkap
             DetailPeminjaman::create([
                 'keranjang_id' => $keranjang->id,
@@ -61,11 +65,11 @@ class KeranjangController extends Controller
                 'jumlah' => '1',
                 'status_peminjaman' => 'keranjang',
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ]);
-    
+
             return redirect()->back()->with('success', 'Buku berhasil ditambahkan ke keranjang.');
-    
+
         } catch (\Exception $e) {
             Log::error('Error adding to cart: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal menambahkan buku ke keranjang. Silakan coba lagi.');
