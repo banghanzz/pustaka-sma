@@ -21,7 +21,7 @@
                     <!-- NISN/NIK Input -->
                     <div class="mb-3 form-group">
                         <label for="nomor_induk" class="text-dark">NISN/NIP/NIK</label>
-                        <input type="text" id="nomor_induk" class="form-control"  placeholder="Masukkan NISN atau NIP" wire:model="nomor_induk" required>
+                        <input type="text" id="nomor_induk" class="form-control"  placeholder="Masukkan NISN/NIP/NIK" wire:model="nomor_induk" required>
                     </div>
 
                     <!-- Alamat Input -->
@@ -130,7 +130,7 @@
                     <!-- NISN/NIK Input -->
                     <div class="mb-3 form-group">
                         <label for="nomor_induk" class="text-dark">NISN/NIP/NIK</label>
-                        <input type="text" id="nomor_induk" class="form-control" placeholder="Masukkan NISN atau NIP" wire:model="nomor_induk" required>
+                        <input type="text" id="nomor_induk" class="form-control" placeholder="Masukkan NISN/NIP/NIK" wire:model="nomor_induk" required>
                     </div>
 
                     <!-- Alamat Input -->
