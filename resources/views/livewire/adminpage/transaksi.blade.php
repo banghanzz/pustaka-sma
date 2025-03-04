@@ -37,6 +37,11 @@
                    href="#" 
                    wire:click.prevent="setFilter('selesai')">Selesai</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ $activeFilter === 'peganganguru' ? 'active' : '' }}" 
+                   href="#" 
+                   wire:click.prevent="setFilter('peganganguru')">Pegangan Guru</a>
+            </li>
         </ul>
         {{-- Card Table --}}
         <div class="card shadow mb-4">

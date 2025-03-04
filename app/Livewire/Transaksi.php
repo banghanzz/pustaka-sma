@@ -33,6 +33,11 @@ class Transaksi extends Component
             case 'selesai':
                 $query->where('status_peminjaman', 'selesai');
                 break;
+            case 'peganganguru':
+                $query->whereHas('keranjang.user', function($q) {
+                    $q->where('roles_id', 3);
+                });
+                break;
             default:
                 // 'semua' - no filter needed
                 break;
