@@ -44,7 +44,6 @@
                                 Pinjam</th>
                             <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="">Tanggal
                                 Kembali</th>
-                            <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="">Denda</th>
                             <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="">Status</th>
                         @endif
                         @if ($detailPeminjaman->contains('status_peminjaman', 'keranjang'))
@@ -75,9 +74,7 @@
                                     {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
                                 <td class="align-middle text-center fs-6">
                                     {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
-                                <td class="align-middle fs-6">{{ $itemPeminjaman->denda ?? '-' }}</td>
                                 <td class="align-middle fs-6">
-
                                     @switch($itemPeminjaman->status_peminjaman)
                                         @case('menunggu')
                                             <div class="alert alert-warning text-center m-0" role="alert">
@@ -106,22 +103,21 @@
                                         @default
                                             {{ ucfirst($itemPeminjaman->status_peminjaman) }}
                                     @endswitch
-        </div>
-        </td>
-        @endif
-        @if ($itemPeminjaman->status_peminjaman == 'keranjang')
-            <td class="align-middle fs-6">
-                <form action="{{ route('keranjang.remove', $itemPeminjaman->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></button>
-                </form>
-            </td>
-        @endif
-        </tr>
-        @empty
-            @endforelse
-            </tbody>
+                                </td>
+                            @endif
+                            @if ($itemPeminjaman->status_peminjaman == 'keranjang')
+                                <td class="align-middle fs-6">
+                                    <form action="{{ route('keranjang.remove', $itemPeminjaman->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></button>
+                                    </form>
+                                </td>
+                            @endif
+                        </tr>
+                        @empty
+                    @endforelse
+                </tbody>
             </table>
         </div>
 
@@ -142,7 +138,7 @@
                         <div class="input-group-lg mb-3">
                             <label for="tanggalkembali" class="form-label">Tanggal Kembali</label>
                             <input type="date" class="form-control" id="tanggalkembali" name="tanggal_kembali"
-                                value="{{ date('Y-m-d', strtotime('+3 days')) }}" required>
+                                value="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
                         </div>
                         <button type="submit" class="btn btn-primary px-5 py-2 fs-5 fw-semibold w-100">Ajukan
                             Peminjaman</button>
