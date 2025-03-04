@@ -71,11 +71,11 @@
         <table class="borderless-table">
             <tr>
                 <td width="20%">Bulan</td>
-                <td>: {{ $currentMonth }}</td>
+                <td>: {{ $selectedMonth }}</td>
             </tr>
             <tr>
                 <td width="20%">Tahun</td>
-                <td>: {{ $currentYear }}</td>
+                <td>: {{ $selectedYear }}</td>
             </tr>
         </table>
         <table>
@@ -130,7 +130,7 @@
                     NIP. {{ $kepsek->nomor_induk }}
                 </td>
                 <td>
-                    Perawang, 01 Januari 2025<br>
+                    Perawang, {{ $currentDate }}<br>
                     Kepala Perpustakaan<br><br><br><br><br><br>
                     <strong>{{ $pustakawan->nama }}</strong><br>
                     NIP. {{ $pustakawan->nomor_induk }}

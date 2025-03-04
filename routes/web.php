@@ -40,7 +40,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/admin/buku-rusak', [DashboardController::class, 'bukurusak']);
         Route::get('/admin/anggota-perpustakaan', [DashboardController::class, 'anggota']);
         Route::get('/admin/rekapitulasi', [DashboardController::class, 'rekapitulasi']);
-        Route::get('/admin/rekapitulasi/download-pdf', [RekapitulasiController::class, 'downloadPDF'])->name('rekapitulasi.downloadPDF');
         Route::get('/admin/tata-tertib', [TataTertibController::class, 'adminVIew']);
         Route::get('/admin/visi-misi', [VIsiMisiController::class, 'adminView']);
     });
@@ -50,7 +49,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/riwayat', [RiwayatController::class, 'index']);
 
         Route::group(['middleware' => 'role:2,999'], function () {
-            Route::get('/rekapitulasi', [RekapitulasiController::class, 'index']);
+            Route::get('/rekapitulasi', [RekapitulasiController::class, 'index'])->name('rekapitulasi');
+            Route::get('/rekapitulasi/download-pdf', [RekapitulasiController::class, 'downloadPDF'])->name('rekapitulasi.downloadPDF');
         });
     });
 });
