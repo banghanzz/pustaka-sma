@@ -36,6 +36,10 @@
                         <input type="number" class="form-control text-dark" id="rusak_berat" wire:model="rusak_berat" required placeholder="Ketikkan Banyaknya Buku Rusak Berat"/>
                         <small id="help" class="form-text text-muted">Isi dengan "0" jika kosong</small>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="tanggal_pencatatan" class="text-dark">Tanggal Pencatatan</label>
+                        <input type="date" class="form-control text-dark" id="tanggal_pencatatan" wire:model="tanggal_pencatatan" value="{{ date('Y-m-d') }}" required/>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Simpan</button>
                 </form>
             </div>
@@ -78,6 +82,10 @@
                         <input type="number" class="form-control text-dark" id="rusak_berat" wire:model="rusak_berat" required placeholder="Ketikkan Banyaknya Buku Rusak Berat"/>
                         <small id="help" class="form-text text-muted">Isi dengan "0" jika kosong</small>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="tanggal_pencatatan" class="text-dark">Tanggal Pencatatan</label>
+                        <input type="date" class="form-control text-dark" id="tanggal_pencatatan" wire:model="tanggal_pencatatan" required/>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Simpan Perubahan</button>
                 </form>
             </div>
@@ -118,6 +126,10 @@
                         <tr>
                             <td width="30%" class="text-dark">Rusak Berat</td>
                             <td width="70%" class="text-dark">: {{ $rusak_berat }} </td>
+                        </tr>
+                        <tr>
+                            <td width="30%" class="text-dark">Tanggal Pencatatan</td>
+                            <td width="70%" class="text-dark">: {{ $tanggal_pencatatan }} </td>
                         </tr>
                     </table>
                     <button type="submit" class="btn btn-danger w-100 mt-3">Hapus</button>
