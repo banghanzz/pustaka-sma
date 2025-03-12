@@ -220,7 +220,7 @@
     document.getElementById('roles_id').addEventListener('change', function () {
         const level = this.value;
         const kelasInput = document.getElementById('kelasInput');
-        if (level === '2') {
+        if (level === '4') {
             kelasInput.style.display = 'block';
         } else {
             kelasInput.style.display = 'none';
