@@ -175,7 +175,7 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <button wire:click="completePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-primary btn-sm w-100 mb-2">Sudah Kembali</button>
-                                        <button type="button" class="btn btn-outline-primary btn-sm w-100">Hubungi Peminjam</button>
+                                        <a href="https://t.me/+62{{ $itemPeminjaman->keranjang->user->nomor_telegram }}" target="_blank" class="btn btn-outline-primary btn-sm w-100">Hubungi Peminjam</a>
                                     </td>
                                 </tr>
                             @endforeach

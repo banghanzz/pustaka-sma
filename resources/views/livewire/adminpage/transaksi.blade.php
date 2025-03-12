@@ -124,7 +124,8 @@
                                             <button type="button" wire:click="approvePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-primary btn-sm w-100 mb-2">Setujui</button>
                                             <button type="button" wire:click="cancelPeminjaman({{ $itemPeminjaman->id }})" class="btn btn-outline-danger btn-sm w-100">Batalkan</button>
                                         @elseif ($itemPeminjaman->status_peminjaman == 'dipinjam')
-                                            <button type="button" wire:click="completePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-outline-primary btn-sm w-100">Selesaikan</button>
+                                            <button type="button" wire:click="completePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-outline-primary btn-sm w-100 mb-2">Selesaikan</button>
+                                            <a href="https://t.me/+62{{ $itemPeminjaman->keranjang->user->nomor_telegram }}" target="_blank" class="btn btn-outline-primary btn-sm w-100">Hubungi Peminjam</a>
                                         @endif
                                     </td>
                                 </tr>
