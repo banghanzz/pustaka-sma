@@ -39,8 +39,8 @@
                             <td class="align-middle" style="font-size: 12px">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
                             <td class="align-middle" style="font-size: 12px">
                                 @if($itemPeminjaman->tanggal_pengembalian)
-                                    {{ date('H:i', strtotime($itemPeminjaman->tanggal_pengembalian)) }} WIB<br>
-                                    {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pengembalian)) }}
+                                {{ \Carbon\Carbon::parse($itemPeminjaman->tanggal_pengembalian)->setTimezone('Asia/Jakarta')->format('H:i') }} WIB<br>
+                                {{ \Carbon\Carbon::parse($itemPeminjaman->tanggal_pengembalian)->setTimezone('Asia/Jakarta')->format('d-m-Y') }}
                                 @else
                                     -
                                 @endif

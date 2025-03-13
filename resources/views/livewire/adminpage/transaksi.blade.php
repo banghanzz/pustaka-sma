@@ -119,15 +119,15 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         @if ($itemPeminjaman->tanggal_pengembalian)
-                                            {{ date('H:i', strtotime($itemPeminjaman->tanggal_pengembalian)) }} WIB<br>
-                                            {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pengembalian)) }}
+                                        {{ \Carbon\Carbon::parse($itemPeminjaman->tanggal_pengembalian)->setTimezone('Asia/Jakarta')->format('H:i') }} WIB<br>
+                                        {{ \Carbon\Carbon::parse($itemPeminjaman->tanggal_pengembalian)->setTimezone('Asia/Jakarta')->format('d-m-Y') }}
                                         @else
                                             -
                                         @endif
                                     </td>
                                     <td class="align-middle">
                                         @if ($itemPeminjaman->denda > 0)
-                                            <span class="text-danger font-weight-bold">
+                                            <span class="text-danger">
                                                 Rp {{ number_format($itemPeminjaman->denda, 0, ',', '.') }}
                                             </span>
                                         @elseif($itemPeminjaman->status_peminjaman == 'terlambat')
@@ -138,7 +138,7 @@
                                                 $hariTerlambat = floor($tanggalKembali->diffInDays(now()));
                                                 $potentialDenda = $hariTerlambat * 500;
                                             @endphp
-                                            <span class="text-danger">
+                                            <span class="text-danger font-weight-bold">
                                                 Rp {{ number_format($potentialDenda, 0, ',', '.') }}
                                             </span>
                                         @else
