@@ -28,13 +28,13 @@ class Transaksi extends Component
                 $query->where('status_peminjaman', 'menunggu');
                 break;
             case 'dipinjam':
-                $query->where('status_peminjaman', 'dipinjam');
+                $query->whereIn('status_peminjaman', ['dipinjam', 'terlambat']);
                 break;
             case 'selesai':
                 $query->where('status_peminjaman', 'selesai');
                 break;
             case 'peganganguru':
-                $query->whereHas('keranjang.user', function($q) {
+                $query->whereHas('keranjang.user', function ($q) {
                     $q->where('roles_id', 3);
                 });
                 break;
@@ -52,8 +52,18 @@ class Transaksi extends Component
         $this->getDetailPeminjaman();
     }
 
+    public function checkOverdueStatus()
+    {
+        $dipinjam = DetailPeminjaman::where('status_peminjaman', 'dipinjam')->where('tanggal_kembali', '<', now())->get();
+
+        foreach ($dipinjam as $detail) {
+            $detail->update(['status_peminjaman' => 'terlambat']);
+        }
+    }
+
     public function mount()
     {
+        $this->checkOverdueStatus();
         $this->getDetailPeminjaman();
     }
 
@@ -93,14 +103,19 @@ class Transaksi extends Component
     {
         $detail = DetailPeminjaman::find($id);
         if ($detail) {
+            // Hitung denda berdasarkan hari terlambat
+            $tanggalKembali = \Carbon\Carbon::parse($detail->tanggal_kembali);
+            $hariTerlambat = floor($tanggalKembali->diffInDays(now()));
+            $denda = $hariTerlambat * 500;
+
             $detail->update([
                 'status_peminjaman' => 'selesai',
+                'tanggal_pengembalian' => now(),
+                'denda' => $denda,
             ]);
-            session()->flash('success', 'Peminjaman selesai.');
-            $this->getDetailPeminjaman(); // Refresh data
 
-            $keranjangId = $detail->keranjang_id;
-            $this->checkAndCompleteKeranjang($keranjangId);
+            session()->flash('success', 'Peminjaman selesai.');
+            $this->getDetailPeminjaman();
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
         }
