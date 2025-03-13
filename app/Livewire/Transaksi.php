@@ -116,6 +116,9 @@ class Transaksi extends Component
 
             session()->flash('success', 'Peminjaman selesai.');
             $this->getDetailPeminjaman();
+
+            $keranjangId = $detail->keranjang_id;
+            $this->checkAndCompleteKeranjang($keranjangId);
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
         }

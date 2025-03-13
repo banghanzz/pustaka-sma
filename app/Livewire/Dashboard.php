@@ -108,7 +108,10 @@ class Dashboard extends Component
             ]);
 
             session()->flash('success', 'Peminjaman selesai.');
-            $this->getDetailPeminjaman();
+            $this->getSedangDipinjamList(); // Refresh data
+
+            $keranjangId = $detail->keranjang_id;
+            $this->checkAndCompleteKeranjang($keranjangId);
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
         }

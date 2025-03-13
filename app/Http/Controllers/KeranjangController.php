@@ -15,11 +15,38 @@ class KeranjangController extends Controller
         $keranjang = Keranjang::where('users_id', Auth::id())->where('status_keranjang', 'pending')->first();
         $detailPeminjaman = $keranjang ? $keranjang->detailPeminjaman : collect([]);
 
+        $this->checkAllKeranjang();
+
         return view('frontpage.keranjang', [
             'title' => 'Keranjang',
             'keranjang' => $keranjang,
             'detailPeminjaman' => $detailPeminjaman,
         ]);
+    }
+
+    private function checkAllKeranjang()
+    {
+        $keranjangs = Keranjang::whereHas('detailPeminjaman')->get();
+        foreach ($keranjangs as $keranjang) {
+            $this->checkAndCompleteKeranjang($keranjang->id);
+        }
+    }
+
+    private function checkAndCompleteKeranjang($keranjangId)
+    {
+        $keranjangCheck = Keranjang::find($keranjangId);
+
+        if ($keranjangCheck) {
+            $detailPeminjaman = $keranjangCheck->detailPeminjaman;
+
+            $allCompleted = $detailPeminjaman->every(function ($detail) {
+                return in_array($detail->status_peminjaman, ['dibatalkan', 'selesai']);
+            });
+
+            if ($allCompleted) {
+                $keranjangCheck->update(['status_keranjang' => 'completed']);
+            }
+        }
     }
 
     public function addToKeranjang(Request $request)
