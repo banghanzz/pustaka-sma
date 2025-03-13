@@ -13,8 +13,18 @@ class Dashboard extends Component
     public $totalBuku, $sedangDipinjam, $selesaiDipinjam, $totalBukuRusak, $bukuRusakRingan, $bukuRusakSedang, $bukuRusakBerat;
     public $latestPeminjaman, $sedangDipinjamList;
 
+    public function checkOverdueStatus()
+    {
+        $dipinjam = DetailPeminjaman::where('status_peminjaman', 'dipinjam')->where('tanggal_kembali', '<', now())->get();
+
+        foreach ($dipinjam as $detail) {
+            $detail->update(['status_peminjaman' => 'terlambat']);
+        }
+    }
+    
     public function mount()
     {
+        $this->checkOverdueStatus();
         $this->totalBuku = Buku::count();
         $this->sedangDipinjam = DetailPeminjaman::where('status_peminjaman', 'dipinjam')->count();
         $this->selesaiDipinjam = DetailPeminjaman::where('status_peminjaman', 'selesai')->count();
@@ -48,11 +58,11 @@ class Dashboard extends Component
 
     public function getSedangDipinjamList()
     {
-        $this->sedangDipinjamList = DetailPeminjaman::where('status_peminjaman', 'dipinjam')
-            ->orderBy('created_at', 'asc') // Order by oldest first
-            ->take(4)
+        $this->sedangDipinjamList = DetailPeminjaman::whereIn('status_peminjaman', ['dipinjam', 'terlambat'])
+            ->orderBy('tanggal_kembali', 'asc') // Order by oldest first
+            ->take(6)
             ->get();
-    }
+        }
 
     public function approvePeminjaman($id)
     {
@@ -86,15 +96,19 @@ class Dashboard extends Component
     {
         $detail = DetailPeminjaman::find($id);
         if ($detail) {
+            // Hitung denda berdasarkan hari terlambat
+            $tanggalKembali = \Carbon\Carbon::parse($detail->tanggal_kembali);
+            $hariTerlambat = floor($tanggalKembali->diffInDays(now()));
+            $denda = $hariTerlambat * 500;
+
             $detail->update([
                 'status_peminjaman' => 'selesai',
+                'tanggal_pengembalian' => now(),
+                'denda' => $denda,
             ]);
-            session()->flash('success', 'Peminjaman selesai.');
-            $this->getSedangDipinjamList(); // Refresh data
 
-            $keranjangId = $detail->keranjang_id;
-            $this->checkAndCompleteKeranjang($keranjangId);
-            
+            session()->flash('success', 'Peminjaman selesai.');
+            $this->getDetailPeminjaman();
         } else {
             session()->flash('error', 'Detail peminjaman tidak ditemukan.');
         }
