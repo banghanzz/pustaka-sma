@@ -37,8 +37,15 @@
                             <td class="align-middle text-nowrap" style="font-size: 12px">Rak {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
                             <td class="align-middle" style="font-size: 12px">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
                             <td class="align-middle" style="font-size: 12px">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
-                            <td class="align-middle" style="font-size: 12px">{{ $itemPeminjaman->waktu_pengembalian ? date('d-m-Y', strtotime($itemPeminjaman->waktu_pengembalian)) : '-' }}</td>
-                            <td class="align-middle" style="font-size: 12px">{{ $itemPeminjaman->denda ?? '-' }}</td>
+                            <td class="align-middle" style="font-size: 12px">
+                                @if($itemPeminjaman->tanggal_pengembalian)
+                                    {{ date('H:i', strtotime($itemPeminjaman->tanggal_pengembalian)) }} WIB<br>
+                                    {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pengembalian)) }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td class="align-middle text-center" style="font-size: 12px">Rp.{{ $itemPeminjaman->denda ?? '-' }}</td>
                             <td class="align-middle">
                                 @switch($itemPeminjaman->status_peminjaman)
                                         @case('menunggu')

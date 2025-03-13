@@ -45,6 +45,7 @@
                             <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="">Tanggal
                                 Kembali</th>
                             <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="">Status</th>
+                            <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="">Denda</th>
                         @endif
                         @if ($detailPeminjaman->contains('status_peminjaman', 'keranjang'))
                             <th class="fs-6 fw-semibold text-center align-middle" scope="col" width="6%">Aksi</th>
@@ -95,7 +96,14 @@
                                         @break
 
                                         @case('terlambat')
+                                            @php
+                                                $tanggalKembali = \Carbon\Carbon::parse(
+                                                    $itemPeminjaman->tanggal_kembali,
+                                                );
+                                                $hariTerlambat = floor($tanggalKembali->diffInDays(now()));
+                                            @endphp
                                             <div class="alert alert-danger text-center m-0" role="alert">
+                                                Terlambat {{ $hariTerlambat }} hari <br><br>
                                                 Segera kembalikan buku, denda akan bertambah setiap harinya
                                             </div>
                                         @break
@@ -104,48 +112,67 @@
                                             {{ ucfirst($itemPeminjaman->status_peminjaman) }}
                                     @endswitch
                                 </td>
+                                <td class="align-middle text-center fs-6">
+                                    @if ($itemPeminjaman->denda > 0)
+                                        <span class="text-danger font-weight-bold">
+                                            Rp {{ number_format($itemPeminjaman->denda, 0, ',', '.') }}
+                                        </span>
+                                    @elseif($itemPeminjaman->status_peminjaman == 'terlambat')
+                                        @php
+                                            $tanggalKembali = \Carbon\Carbon::parse($itemPeminjaman->tanggal_kembali);
+                                            $hariTerlambat = floor($tanggalKembali->diffInDays(now()));
+                                            $potentialDenda = $hariTerlambat * 500;
+                                        @endphp
+                                        <span class="text-danger">
+                                            Rp {{ number_format($potentialDenda, 0, ',', '.') }}
+                                        </span>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                             @endif
                             @if ($itemPeminjaman->status_peminjaman == 'keranjang')
                                 <td class="align-middle fs-6">
                                     <form action="{{ route('keranjang.remove', $itemPeminjaman->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></button>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i
+                                                class="bi bi-trash3"></i></button>
                                     </form>
                                 </td>
                             @endif
                         </tr>
                         @empty
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        @if (
-            $detailPeminjaman->filter(function ($item) {
-                    return in_array($item->status_peminjaman, ['keranjang']);
-                })->isNotEmpty())
-            {{-- Button Ajukan Pinjaman --}}
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-4">
-                    <form action="{{ route('keranjang.ajukan') }}" method="POST">
-                        @csrf
-                        <div class="input-group-lg mb-3">
-                            <label for="tanggalpinjam" class="form-label">Tanggal Mulai Pinjam</label>
-                            <input type="date" class="form-control" id="tanggalpinjam" name="tanggal_pinjam"
-                                value="{{ date('Y-m-d') }}" required>
-                        </div>
-                        <div class="input-group-lg mb-3">
-                            <label for="tanggalkembali" class="form-label">Tanggal Kembali</label>
-                            <input type="date" class="form-control" id="tanggalkembali" name="tanggal_kembali"
-                                value="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary px-5 py-2 fs-5 fw-semibold w-100">Ajukan
-                            Peminjaman</button>
-                    </form>
-                </div>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-        @endif
+
+            @if (
+                $detailPeminjaman->filter(function ($item) {
+                        return in_array($item->status_peminjaman, ['keranjang']);
+                    })->isNotEmpty())
+                {{-- Button Ajukan Pinjaman --}}
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-4">
+                        <form action="{{ route('keranjang.ajukan') }}" method="POST">
+                            @csrf
+                            <div class="input-group-lg mb-3">
+                                <label for="tanggalpinjam" class="form-label">Tanggal Mulai Pinjam</label>
+                                <input type="date" class="form-control" id="tanggalpinjam" name="tanggal_pinjam"
+                                    value="{{ date('Y-m-d') }}" required>
+                            </div>
+                            <div class="input-group-lg mb-3">
+                                <label for="tanggalkembali" class="form-label">Tanggal Kembali</label>
+                                <input type="date" class="form-control" id="tanggalkembali" name="tanggal_kembali"
+                                    value="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary px-5 py-2 fs-5 fw-semibold w-100">Ajukan
+                                Peminjaman</button>
+                        </form>
+                    </div>
+                </div>
+            @endif
         </div>
     @endsection
 

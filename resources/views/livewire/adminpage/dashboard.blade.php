@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Sedang Dipinjam Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-warning shadow h-100 py-2">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Selesai Dipinjam Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
@@ -116,18 +116,25 @@
                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                     <td class="align-middle">{{ $itemPeminjaman->nomor_pinjaman }}</td>
                                     <td class="align-middle">{{ $itemPeminjaman->keranjang->user->nama }}</td>
-                                    <td class="align-middle">{{ $itemPeminjaman->buku->judul ?? 'Data Buku tidak ditemukan' }}</td>
-                                    <td class="align-middle">Rak {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
-                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
-                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
+                                    <td class="align-middle">
+                                        {{ $itemPeminjaman->buku->judul ?? 'Data Buku tidak ditemukan' }}</td>
+                                    <td class="align-middle">Rak
+                                        {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris
+                                        {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
+                                    <td class="align-middle">
+                                        {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
+                                    <td class="align-middle">
+                                        {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
                                     <td class="align-middle">
                                         <div class="alert alert-warning text-center m-0" role="alert">
                                             Menunggu persetujuan
                                         </div>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <button wire:click="approvePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-primary btn-sm w-100 mb-2">Setujui</button>
-                                        <button wire:click="cancelPeminjaman({{ $itemPeminjaman->id }})" class="btn btn-outline-danger btn-sm w-100">Tidak Setujui</button>
+                                        <button wire:click="approvePeminjaman({{ $itemPeminjaman->id }})"
+                                            class="btn btn-primary btn-sm w-100 mb-2">Setujui</button>
+                                        <button wire:click="cancelPeminjaman({{ $itemPeminjaman->id }})"
+                                            class="btn btn-outline-danger btn-sm w-100">Tidak Setujui</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -140,11 +147,12 @@
         {{-- Buku yang sedang dipinjam --}}
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Buku yang Sedang Dipinjam</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Peminjaman buku mendekati tenggat</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="dipinjamTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-striped" id="dipinjamTable" width="100%"
+                        cellspacing="0">
                         <thead class="">
                             <tr>
                                 <th class="" width="">#</th>
@@ -164,18 +172,45 @@
                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                     <td class="align-middle">{{ $itemPeminjaman->nomor_pinjaman }}</td>
                                     <td class="align-middle">{{ $itemPeminjaman->keranjang->user->nama }}</td>
-                                    <td class="align-middle">{{ $itemPeminjaman->buku->judul ?? 'Data Buku tidak ditemukan' }}</td>
-                                    <td class="align-middle">Rak {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
-                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
-                                    <td class="align-middle">{{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
                                     <td class="align-middle">
-                                        <div class="alert alert-info text-center m-0" role="alert">
-                                            Sedang Dipinjam
-                                        </div>
+                                        {{ $itemPeminjaman->buku->judul ?? 'Data Buku tidak ditemukan' }}</td>
+                                    <td class="align-middle">Rak
+                                        {{ $itemPeminjaman->buku->rak->rak ?? 'Data rak tidak ditemukan' }} - Baris
+                                        {{ $itemPeminjaman->buku->rak->baris ?? '' }}</td>
+                                    <td class="align-middle">
+                                        {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_pinjam)) }}</td>
+                                    <td class="align-middle">
+                                        {{ date('d-m-Y', strtotime($itemPeminjaman->tanggal_kembali)) }}</td>
+                                    <td class="align-middle">
+                                            @switch($itemPeminjaman->status_peminjaman)
+                                                @case('dipinjam')
+                                                    <div class="alert alert-info text-center m-0" role="alert">
+                                                        Sedang dipinjam
+                                                    </div>
+                                                @break
+
+                                                @case('terlambat')
+                                                    @php
+                                                        $tanggalKembali = \Carbon\Carbon::parse(
+                                                            $itemPeminjaman->tanggal_kembali,
+                                                        );
+                                                        $hariTerlambat = floor($tanggalKembali->diffInDays(now()));
+                                                    @endphp
+                                                    <div class="alert alert-danger text-center m-0" role="alert">
+                                                        Terlambat {{ $hariTerlambat }} hari
+                                                    </div>
+                                                @break
+
+                                                @default
+                                                    {{ ucfirst($itemPeminjaman->status_peminjaman) }}
+                                            @endswitch
                                     </td>
                                     <td class="align-middle text-center">
-                                        <button wire:click="completePeminjaman({{ $itemPeminjaman->id }})" class="btn btn-primary btn-sm w-100 mb-2">Sudah Kembali</button>
-                                        <a href="https://t.me/+62{{ $itemPeminjaman->keranjang->user->nomor_telegram }}" target="_blank" class="btn btn-outline-primary btn-sm w-100">Hubungi Peminjam</a>
+                                        <button wire:click="completePeminjaman({{ $itemPeminjaman->id }})"
+                                            class="btn btn-primary btn-sm w-100 mb-2">Sudah Kembali</button>
+                                        <a href="https://t.me/+62{{ $itemPeminjaman->keranjang->user->nomor_telegram }}"
+                                            target="_blank" class="btn btn-outline-primary btn-sm w-100">Hubungi
+                                            Peminjam</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -188,13 +223,13 @@
 </div>
 
 @section('script')
-<script>
-    $(document).ready( function () {
-    $('#dipinjamTable').DataTable();
-} );
+    <script>
+        $(document).ready(function() {
+            $('#dipinjamTable').DataTable();
+        });
 
-    $(document).ready( function () {
-    $('#setujuTable').DataTable();
-} );
-</script>
+        $(document).ready(function() {
+            $('#setujuTable').DataTable();
+        });
+    </script>
 @endsection
