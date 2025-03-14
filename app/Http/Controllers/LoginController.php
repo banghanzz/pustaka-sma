@@ -11,7 +11,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('frontpage.login',[
+        return view('frontpage.login', [
             'title' => 'Login ke Perpustakaan SMAN 3 Tualang',
         ]);
     }
@@ -24,14 +24,17 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
             $user = Auth::user();
 
-            Keranjang::firstOrCreate(
-                ['users_id' => $user->id, 'status_keranjang' => 'pending'],
-                ['created_at' => now(), 'updated_at' => now()]
-            );
+            // Check if account is inactive
+            if ($user->status_akun !== 'active') {
+                Auth::logout();
+                return back()->with('error', 'Akun Anda belum diaktifkan. Silahkan hubungi admin.');
+            }
+
+            $request->session()->regenerate();
+
+            Keranjang::firstOrCreate(['users_id' => $user->id, 'status_keranjang' => 'pending'], ['created_at' => now(), 'updated_at' => now()]);
 
             if ($user->roles_id == 1 || $user->roles_id == 999) {
                 return redirect('/admin/dashboard')->with('success', 'Login berhasil');

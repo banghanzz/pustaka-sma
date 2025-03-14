@@ -39,7 +39,8 @@
                                 <th class="" width="">No Telegram</th>
                                 <th class="" width="">Chat ID</th>
                                 <th class="" width="">Level Anggota</th>                                
-                                <th class="" width="10%">Aksi</th>
+                                <th class="" width="">Status Akun</th>
+                                <th class="" width="">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,8 +60,23 @@
                                 <td class="align-middle">{{ $itemAnggota->chat_id ?? '-' }}</td>
                                 <td class="align-middle">{{ $itemAnggota->role->role }}</td>
                                 <td class="align-middle text-center">
-                                    <div class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-outline-primary btn-sm w-100 mr-2" data-toggle="modal" data-target="#ubahAnggotaModal" wire:click="show({{ $itemAnggota->id }})">Ubah</button>
+                                    @switch($itemAnggota->status_akun)
+                                        @case('active')
+                                            <span class="text-success">Aktif</span>
+                                            @break
+                                        @case('inactive')
+                                            <span class="text-danger">Tidak Aktif</span>
+                                            @break
+                                        @default
+                                            {{ $itemAnggota->status_akun }} 
+                                    @endswitch
+                                </td>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        @if ($itemAnggota->status_akun == 'inactive')
+                                            <button type="button" wire:click="activateUserAccount({{ $itemAnggota->id }})" class="btn btn-primary btn-sm w-100 mb-2">Aktifkan</button>
+                                        @endif
+                                        <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2" data-toggle="modal" data-target="#ubahAnggotaModal" wire:click="show({{ $itemAnggota->id }})">Ubah</button>
                                         <button type="button" class="btn btn-outline-danger btn-sm w-100" data-toggle="modal" data-target="#hapusAnggotaModal" wire:click="show({{ $itemAnggota->id }})">Hapus</button>
                                     </div>
                                 </td>

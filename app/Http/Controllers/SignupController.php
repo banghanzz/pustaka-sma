@@ -65,6 +65,7 @@ class SignupController extends Controller
             'foto_profil' => $fotoPath,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status_akun' => 'inactive',
         ]);
 
         return redirect('/login')->with('success', 'Akun berhasil dibuat. Silakan login.');

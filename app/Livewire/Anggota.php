@@ -12,7 +12,7 @@ class Anggota extends Component
 {
     use WithFileUploads;
 
-    public $nama, $nomor_induk, $alamat, $nomor_telegram, $chat_id, $role, $roles_id, $kelas, $foto_profil, $email, $password, $anggotaId;
+    public $nama, $nomor_induk, $alamat, $nomor_telegram, $chat_id, $role, $roles_id, $kelas, $foto_profil, $email, $password, $status_akun, $anggotaId;
 
     protected $rules = [
         'nama' => 'required|string|max:255',
@@ -30,10 +30,7 @@ class Anggota extends Component
     public function render()
     {
         return view('livewire.adminpage.anggota', [
-            'anggota' => ModelsAnggota::where('roles_id', '!=', 999)
-                ->orderBy('roles_id', 'asc')
-                ->orderBy('nama', 'asc')
-                ->get()
+            'anggota' => ModelsAnggota::where('roles_id', '!=', 999)->orderBy('roles_id', 'asc')->orderBy('nama', 'asc')->get(),
         ]);
     }
 
@@ -52,15 +49,27 @@ class Anggota extends Component
         $this->anggotaId = '';
     }
 
+    public function activateUserAccount($id)
+    {
+        try {
+            $anggota = ModelsAnggota::findOrFail($id);
+            $anggota->update([
+                'status_akun' => 'active',
+            ]);
+
+            return redirect('/admin/anggota-perpustakaan')->with('success', 'Akun berhasil diaktifkan.');
+        } catch (\Exception $e) {
+            logger()->error('Activation failed: ' . $e->getMessage());
+            return redirect('/admin/anggota-perpustakaan')->with('error', 'Gagal mengaktifkan akun: ' . $e->getMessage());
+        }
+    }
+
     public function store()
     {
         $this->validate();
 
         // Pengecekan akun yang sama berdasarkan nama, nomor_induk, dan email
-        $existingUser = ModelsAnggota::where('nama', $this->nama)
-            ->where('nomor_induk', $this->nomor_induk)
-            ->where('email', $this->email)
-            ->first();
+        $existingUser = ModelsAnggota::where('nama', $this->nama)->where('nomor_induk', $this->nomor_induk)->where('email', $this->email)->first();
 
         if ($existingUser) {
             return redirect('/admin/anggota-perpustakaan')->with('error', 'Akun dengan nama, nomor induk, dan email yang sama sudah terdaftar.');
@@ -108,6 +117,7 @@ class Anggota extends Component
         $this->roles_id = $anggota->roles_id;
         $this->kelas = $anggota->kelas;
         $this->email = $anggota->email;
+        $this->status_akun = $anggota->status_akun;
     }
 
     public function update()
@@ -115,7 +125,7 @@ class Anggota extends Component
         try {
             // Cast chat_id to string before validation
             $this->chat_id = strval($this->chat_id);
-    
+
             // Validate with specific messages
             $this->validate([
                 'nama' => 'required|string|max:255',
@@ -127,23 +137,24 @@ class Anggota extends Component
                 'kelas' => 'nullable|string|max:255',
                 'foto_profil' => 'nullable|image|max:1024',
                 'email' => 'required|email|max:255',
+                'status_akun' => 'required|in:active,inactive'
             ]);
-    
+
             if ($this->anggotaId) {
                 $anggota = ModelsAnggota::findOrFail($this->anggotaId);
-                
+
                 $fotoPath = $anggota->foto_profil;
-    
+
                 if ($this->foto_profil) {
                     if ($anggota->foto_profil && Storage::disk('public')->exists($anggota->foto_profil)) {
                         Storage::disk('public')->delete($anggota->foto_profil);
                     }
-    
+
                     $slug = Str::slug($this->nama . '-' . $this->nomor_induk);
                     $extension = $this->foto_profil->getClientOriginalExtension();
                     $fotoPath = $this->foto_profil->storeAs('fotoprofil', $slug . '.' . $extension, 'public');
                 }
-    
+
                 $updated = $anggota->update([
                     'nama' => $this->nama,
                     'nomor_induk' => $this->nomor_induk,
@@ -154,12 +165,13 @@ class Anggota extends Component
                     'kelas' => $this->kelas,
                     'foto_profil' => $fotoPath,
                     'email' => $this->email,
+                    'status_akun' => $this->status_akun,
                 ]);
-    
+
                 if (!$updated) {
                     throw new \Exception('Gagal memperbarui data');
                 }
-    
+
                 $this->resetInputFields();
                 $this->dispatch('dataUpdated');
                 return redirect('/admin/anggota-perpustakaan')->with('success', 'Data Anggota berhasil diubah.');

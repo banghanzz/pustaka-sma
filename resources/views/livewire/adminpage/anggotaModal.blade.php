@@ -15,32 +15,38 @@
                     <!-- Nama Input -->
                     <div class="mb-3 form-group">
                         <label for="nama" class="text-dark">Nama</label>
-                        <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap" wire:model="nama" required>
+                        <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap"
+                            wire:model="nama" required>
                     </div>
 
                     <!-- NISN/NIK Input -->
                     <div class="mb-3 form-group">
                         <label for="nomor_induk" class="text-dark">NISN/NIP/NIK</label>
-                        <input type="text" id="nomor_induk" class="form-control"  placeholder="Masukkan NISN/NIP/NIK" wire:model="nomor_induk" required>
+                        <input type="text" id="nomor_induk" class="form-control" placeholder="Masukkan NISN/NIP/NIK"
+                            wire:model="nomor_induk" required>
                     </div>
 
                     <!-- Alamat Input -->
                     <div class="mb-3 form-group">
                         <label for="alamat" class="text-dark">Alamat</label>
-                        <input type="text" id="alamat" class="form-control" placeholder="Masukkan alamat lengkap" wire:model="alamat" required>
+                        <input type="text" id="alamat" class="form-control" placeholder="Masukkan alamat lengkap"
+                            wire:model="alamat" required>
                     </div>
 
                     <!-- Nomor Telegram Input -->
                     <div class="mb-3 form-group">
                         <label for="nomor_telegram" class="text-dark">Nomor Telegram</label>
-                        <input type="text" id="nomor_telegram" class="form-control" placeholder="Masukkan nomor Telegram" wire:model="nomor_telegram" required>
+                        <input type="text" id="nomor_telegram" class="form-control"
+                            placeholder="Masukkan nomor Telegram" wire:model="nomor_telegram" required>
                     </div>
 
                     <!-- Chat ID Telegram Input -->
                     <div class="mb-3 form-group">
                         <label for="chat_id" class="text-dark">Chat ID Telegram</label>
-                        <input type="text" id="chat_id" class="form-control" placeholder="Masukkan Chat ID Telegram" wire:model="chat_id" required>
-                        <a href="{{ url('/tutorial-chat-id') }}" class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
+                        <input type="text" id="chat_id" class="form-control"
+                            placeholder="Masukkan Chat ID Telegram" wire:model="chat_id" required>
+                        <a href="{{ url('/tutorial-chat-id') }}"
+                            class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
                             Lihat Tutorial Mendapatkan Chat ID Telegram
                         </a>
                     </div>
@@ -63,7 +69,8 @@
                     <!-- Kelas Input (Hanya untuk siswa) -->
                     <div class="mb-3 form-group" id="kelasInput" style="display: none;">
                         <label for="kelas" class="text-dark">Kelas</label>
-                        <input type="text" id="kelas" class="form-control" wire:model="kelas" placeholder="Contoh : 12-1">
+                        <input type="text" id="kelas" class="form-control" wire:model="kelas"
+                            placeholder="Contoh : 12-1">
                     </div>
 
                     <!-- Pas Foto Input -->
@@ -76,7 +83,8 @@
                     <!-- Email Input -->
                     <div class="mb-3 form-group">
                         <label for="email" class="text-dark">Email</label>
-                        <input type="email" id="email" class="form-control" placeholder="Masukkan email" wire:model="email" required>
+                        <input type="email" id="email" class="form-control" placeholder="Masukkan email"
+                            wire:model="email" required>
                     </div>
 
                     <!-- Password Input -->
@@ -87,12 +95,14 @@
                                 placeholder="Masukkan password" wire:model="password" required>
                             <div class="input-group-addon">
                                 <button class="btn h-100 border border-left-0"
-                                    style="border-radius: 0 10px 10px 0; border-color:#9e9e9e" type="button" id="togglePassword">
+                                    style="border-radius: 0 10px 10px 0; border-color:#9e9e9e" type="button"
+                                    id="togglePassword">
                                     <i class="bi bi-eye-fill" id="eyeIcon"></i>
                                 </button>
                             </div>
                         </div>
-                        <small id="passwordHelp" class="form-text @error('password') text-danger @else text-muted @enderror">
+                        <small id="passwordHelp"
+                            class="form-text @error('password') text-danger @else text-muted @enderror">
                             @error('password')
                                 {{ $message }}
                             @else
@@ -124,37 +134,53 @@
                     <!-- Nama Input -->
                     <div class="mb-3 form-group">
                         <label for="nama" class="text-dark">Nama</label>
-                        <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap" wire:model="nama" required>
-                        @error('nama') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="text" id="nama" class="form-control"
+                            placeholder="Masukkan nama lengkap" wire:model="nama" required>
+                        @error('nama')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- NISN/NIK Input -->
                     <div class="mb-3 form-group">
                         <label for="nomor_induk" class="text-dark">NISN/NIP/NIK</label>
-                        <input type="text" id="nomor_induk" class="form-control" placeholder="Masukkan NISN/NIP/NIK" wire:model="nomor_induk" required>
-                        @error('nomor_induk') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="text" id="nomor_induk" class="form-control"
+                            placeholder="Masukkan NISN/NIP/NIK" wire:model="nomor_induk" required>
+                        @error('nomor_induk')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Alamat Input -->
                     <div class="mb-3 form-group">
                         <label for="alamat" class="text-dark">Alamat</label>
-                        <input type="text" id="alamat" class="form-control" placeholder="Masukkan alamat lengkap" wire:model="alamat" required>
-                        @error('alamat') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="text" id="alamat" class="form-control"
+                            placeholder="Masukkan alamat lengkap" wire:model="alamat" required>
+                        @error('alamat')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Nomor Telegram Input -->
                     <div class="mb-3 form-group">
                         <label for="nomor_telegram" class="text-dark">Nomor Telegram</label>
-                        <input type="text" id="nomor_telegram" class="form-control" placeholder="Masukkan nomor Telegram" wire:model="nomor_telegram" required>
-                        @error('nomor_telegram') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="text" id="nomor_telegram" class="form-control"
+                            placeholder="Masukkan nomor Telegram" wire:model="nomor_telegram" required>
+                        @error('nomor_telegram')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Chat ID Telegram Input -->
                     <div class="mb-3 form-group">
                         <label for="chat_id" class="text-dark">Chat ID Telegram</label>
-                        <input type="text" id="chat_id" class="form-control" placeholder="Masukkan Chat ID Telegram" wire:model="chat_id" required>
-                        @error('chat_id') <span class="text-danger">{{ $message }}</span> @enderror
-                        <a href="{{ url('/tutorial-chat-id') }}" class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
+                        <input type="text" id="chat_id" class="form-control"
+                            placeholder="Masukkan Chat ID Telegram" wire:model="chat_id" required>
+                        @error('chat_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <a href="{{ url('/tutorial-chat-id') }}"
+                            class="fw-semibold m-0 text-center text-decoration-none" target="_blank">
                             Lihat Tutorial Mendapatkan Chat ID Telegram
                         </a>
                     </div>
@@ -177,24 +203,52 @@
                     <!-- Kelas Input (Hanya untuk siswa) -->
                     <div class="mb-3 form-group" id="kelasInput" style="display: none;">
                         <label for="kelas" class="text-dark">Kelas</label>
-                        <input type="text" id="kelas" class="form-control" wire:model="kelas" placeholder="Masukkan kelas">
-                        @error('kelas') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="text" id="kelas" class="form-control" wire:model="kelas"
+                            placeholder="Masukkan kelas">
+                        @error('kelas')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Pas Foto Input -->
                     <div class="mb-3 form-group">
                         <label for="foto_profil" class="text-dark">Pas Foto</label>
                         <input type="file" id="foto_profil" class="form-control-file" wire:model="foto_profil">
-                        @error('foto_profil') <span class="text-danger">{{ $message }}</span> @enderror
-                        <small id="photoHelp" class="form-text text-muted">Upload gambar maksimal 1024 KB (1 MB)</small>
+                        @error('foto_profil')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <small id="photoHelp" class="form-text text-muted">Upload gambar maksimal 1024 KB (1
+                            MB)</small>
                     </div>
 
                     <!-- Email Input -->
                     <div class="mb-3 form-group">
                         <label for="email" class="text-dark">Email</label>
-                        <input type="email" id="email" class="form-control" wire:model="email" placeholder="Masukkan email" required>
-                        @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="email" id="email" class="form-control" wire:model="email"
+                            placeholder="Masukkan email" required>
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
+
+                    <!-- Status Akun Input -->
+                    <div class="mb-3 form-group">
+                        <label class="text-dark d-block">Status Akun</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="statusAktif" name="status_akun" class="custom-control-input"
+                                value="active" wire:model="status_akun">
+                            <label class="custom-control-label text-dark" for="statusAktif">Aktif</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="statusNonaktif" name="status_akun"
+                                class="custom-control-input" value="inactive" wire:model="status_akun">
+                            <label class="custom-control-label text-dark" for="statusNonaktif">Tidak Aktif</label>
+                        </div>
+                        @error('status_akun')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <button type="submit" class="btn btn-primary w-100 mt-3">Simpan Perubahan</button>
                 </form>
             </div>
