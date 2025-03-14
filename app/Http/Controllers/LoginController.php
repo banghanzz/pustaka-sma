@@ -36,7 +36,7 @@ class LoginController extends Controller
             if ($user->roles_id == 1 || $user->roles_id == 999) {
                 return redirect('/admin/dashboard')->with('success', 'Login berhasil');
             } else {
-                return redirect('/')->with('success', 'Login berhasil');
+                return redirect('/koleksi-buku')->with('success', 'Login berhasil');
             }
         }
 

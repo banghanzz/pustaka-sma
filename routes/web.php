@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
@@ -12,6 +13,13 @@ use App\Http\Controllers\KoleksiBukuController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\KartuPerpustakaanController;
 
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect('/koleksi-buku');
+    }
+    return redirect('/login');
+});
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'loginPost']);
@@ -19,7 +27,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/signup', [SignupController::class, 'store']);
 });
 
-Route::get('/', [KoleksiBukuController::class, 'index']);
+Route::get('/koleksi-buku', [KoleksiBukuController::class, 'index']);
 Route::get('/tata-tertib', [TataTertibController::class, 'index']);
 Route::get('/visi-misi', [VIsiMisiController::class, 'index']);
 Route::get('/tutorial-chat-id', [SignupController::class, 'tutorial']);

@@ -16,7 +16,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item d-flex align-items-center justify-content-center">
                     <a class="nav-link {{ $title === 'Koleksi Buku' ? 'active fw-semibold' : '' }}" aria-current="page"
-                        href="{{ url('/') }}">Koleksi Buku</a>
+                        href="{{ url('/koleksi-buku') }}">Koleksi Buku</a>
                 </li>
                 <li class="nav-item d-flex align-items-center justify-content-center">
                     <a class="nav-link {{ $title === 'Tata Tertib' ? 'active fw-semibold' : '' }}"
