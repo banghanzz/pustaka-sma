@@ -26,6 +26,10 @@
                     <a class="nav-link {{ $title === 'Visi & Misi' ? 'active fw-semibold' : '' }}"
                         href="{{ url('/visi-misi') }}">Visi & Misi</a>
                 </li>
+                <li class="nav-item d-flex align-items-center justify-content-center">
+                    <a class="nav-link {{ $title === 'Profil Perpustakaan' ? 'active fw-semibold' : '' }}"
+                        href="{{ url('/profil-perpustakaan') }}">Profil Perpustakaan</a>
+                </li>
             </ul>
 
             {{-- Right Side Nav Item --}}
@@ -73,7 +77,7 @@
                             @if (Auth::user()->roles_id == 999)
                                 <a class="dropdown-item" href="{{ url('/admin/dashboard') }}">Dashboard Admin</a>
                             @endif
-                            <a class="dropdown-item" href="/ubahpassword">Ubah Password</a>
+                            <a class="dropdown-item" href="/ubah-password">Ubah Password</a>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="dropdown-item text-danger">Logout</button>
