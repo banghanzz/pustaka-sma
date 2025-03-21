@@ -28,13 +28,13 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/signup', [SignupController::class, 'store']);
 });
 
-Route::get('/koleksi-buku', [KoleksiBukuController::class, 'index']);
 Route::get('/tata-tertib', [TataTertibController::class, 'index']);
 Route::get('/visi-misi', [VisiMisiController::class, 'index']);
 Route::get('/tutorial-chat-id', [SignupController::class, 'tutorial']);
 Route::get('/profil-perpustakaan', [ProfilPerpustakaanController::class, 'index']);
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/koleksi-buku', [KoleksiBukuController::class, 'index']);
     Route::get('/kartu-perpustakaan', [KartuPerpustakaanController::class, 'index']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/keranjang/add/{id}', [KeranjangController::class, 'addToKeranjang'])->name('keranjang.add');
