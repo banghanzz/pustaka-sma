@@ -5,19 +5,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\RiwayatController;
-use App\Http\Controllers\VIsiMisiController;
+use App\Http\Controllers\VisiMisiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\TataTertibController;
 use App\Http\Controllers\KoleksiBukuController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\KartuPerpustakaanController;
+use App\Http\Controllers\ProfilPerpustakaanController;
 
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/koleksi-buku');
     }
-    return redirect('/login');
+    return redirect('/profil-perpustakaan');
 });
 
 Route::group(['middleware' => 'guest'], function () {
@@ -29,8 +30,9 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::get('/koleksi-buku', [KoleksiBukuController::class, 'index']);
 Route::get('/tata-tertib', [TataTertibController::class, 'index']);
-Route::get('/visi-misi', [VIsiMisiController::class, 'index']);
+Route::get('/visi-misi', [VisiMisiController::class, 'index']);
 Route::get('/tutorial-chat-id', [SignupController::class, 'tutorial']);
+Route::get('/profil-perpustakaan', [ProfilPerpustakaanController::class, 'index']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/kartu-perpustakaan', [KartuPerpustakaanController::class, 'index']);
@@ -38,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/keranjang/add/{id}', [KeranjangController::class, 'addToKeranjang'])->name('keranjang.add');
     Route::delete('/keranjang/{id}', [KeranjangController::class, 'removeFromKeranjang'])->name('keranjang.remove');
     Route::post('/keranjang/ajukan', [KeranjangController::class, 'ajukanPinjaman'])->name('keranjang.ajukan');
+    Route::get('/ubah-password', [SignupController::class, 'ubahPasswordView'])->name('ubahpassword');
+    Route::post('/ubah-password', [SignupController::class, 'updatePassword'])->name('ubahpassword.update');
 
     Route::group(['middleware' => 'role:1,999'], function () {
         Route::get('/admin/dashboard', [DashboardController::class, 'index']);
