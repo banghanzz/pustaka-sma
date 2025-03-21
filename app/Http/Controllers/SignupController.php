@@ -5,19 +5,47 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class SignupController extends Controller
 {
     public function index()
     {
-        return view('frontpage.signup',[
+        return view('frontpage.signup', [
             'title' => 'Daftar Akun',
         ]);
     }
 
+    public function ubahPasswordView()
+    {
+        return view('frontpage.ubahpassword', [
+            'title' => 'Ubah Password',
+        ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'Password saat ini tidak sesuai!');
+        }
+
+        ModelsUser::where('id', $user->id)->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return back()->with('success', 'Password berhasil diubah!');
+    }
+
     public function tutorial()
     {
-        return view('frontpage.tutorial-chat-id',[
+        return view('frontpage.tutorial-chat-id', [
             'title' => 'Tutorial Chat ID Telegram',
         ]);
     }
@@ -38,10 +66,7 @@ class SignupController extends Controller
         ]);
 
         // Pengecekan akun yang sama berdasarkan nama, nomor_induk, dan email
-        $existingUser = ModelsUser::where('nama', $request->nama)
-            ->where('nomor_induk', $request->nomor_induk)
-            ->where('email', $request->email)
-            ->first();
+        $existingUser = ModelsUser::where('nama', $request->nama)->where('nomor_induk', $request->nomor_induk)->where('email', $request->email)->first();
 
         if ($existingUser) {
             return redirect('/signup')->with('error', 'Akun dengan nama, nomor induk, dan email yang sama sudah terdaftar.');
