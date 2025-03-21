@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VIsiMisi;
+use App\Models\VisiMisi;
 use Illuminate\Http\Request;
 
-class VIsiMisiController extends Controller
+class VisiMisiController extends Controller
 {
     public function index()
     {
         return view('frontpage.visimisi',[
             'title' => 'Visi & Misi',
-            'visi_misi' => VIsiMisi::all(),
+            'visi_misi' => VisiMisi::all(),
         ]);
     }
 
