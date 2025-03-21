@@ -20,7 +20,7 @@
                 <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-75"></div>
                 <div class="carousel-caption d-none d-md-block position-absolute top-50 translate-middle-y">
                     <h1 class="fw-bold" style="font-size: 64px">Selamat Datang di Perpustakaan</h1>
-                    <h1 style="font-size: 64px">SMA Negeri 6 Tualang</h1>
+                    <h1 style="font-size: 64px">SMA Negeri 3 Tualang</h1>
                     <p class="fs-4">Pusat Ilmu Pengetahuan dan Sumber Inspirasi Belajar</p>
                 </div>
             </div>
